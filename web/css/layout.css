@@ -1,0 +1,107 @@
+@import url(https://fonts.googleapis.com/css?family=Open+Sans:400,300,600,700,400italic);
+
+body {
+	font-family: 'Open Sans', sans-serif;;
+}
+/* NAVIGATION */
+.navigation {
+	text-align: right;
+    height: 50px;
+    background-color: #666;
+    opacity: 0.8;
+    margin-top: 10px;
+    padding-right: 70px;
+    position: absolute;
+    width: 100%;
+    z-index: 1;
+}
+
+.navigation .logo {
+    float: left;
+    line-height: 52px;
+    text-transform: uppercase;
+    font-size: 36px;
+    font-weight: 200;
+    margin-left: 15px;
+}
+
+.navigation .logo a {
+    text-decoration: none;
+    color: #eee;
+}
+
+.navigation .nav-point {
+	display: inline-block;
+	line-height: 50px;
+	margin-left: 20px;
+}
+
+.navigation .nav-point a {
+	text-decoration: none;
+	color: #ccc;
+    font-size: 16px;
+}
+
+.navigation .nav-point a:hover {
+	color: #eee;
+}
+
+/* HOME */
+#home {
+
+}
+
+/* CAROUSEL */
+#home #quotations-carousel {
+	height: 377px;
+	background-image: url('../images/layout/Header_Desktop.jpg');
+	background-size: 100%;
+    background-repeat: no-repeat;
+}
+
+#home #quotations-carousel .carousel-inner {
+	height: 100%;
+}
+
+#home #quotations-carousel .carousel-inner .item{
+    background-color:transparent;
+    height: 377px;
+    display:none;
+}
+
+#home #quotations-carousel .carousel-inner .item.active{
+    display:block;
+}
+
+#home #quotations-carousel .carousel-control {
+	background-color: transparent;
+	background-image: none;
+    padding-top: 100px;
+    font-size: 100px;
+    font-weight: 300;
+}
+
+#home #quotations-carousel .carousel-inner .item .carousel-caption{
+    color: #fff;
+    position: relative;
+    right: inherit;
+    left: inherit;
+    padding-bottom: 0px;
+    top: 50%;
+    transform: translate(0, -50%);
+    width: 70%;
+    margin: 0px auto;
+    font-weight: 300;
+}
+
+#home #quotations-carousel .carousel-inner .item .carousel-caption p {
+	font-size: 42px;
+}
+
+#home #quotations-carousel .carousel-inner .item .carousel-caption .author {
+	text-align: right;
+    font-size: 25px;
+    margin-top: 20px;
+}
+
+    
