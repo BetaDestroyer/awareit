@@ -17,3 +17,5 @@
 /web/app.php
 /web/app_dev.php
 /web/.htaccess
+/node_modules
+/gulpfile.js
