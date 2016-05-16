@@ -2,25 +2,25 @@
 	<div class="nav-bg"></div>
 	<div class="navigation ">
 		<div class="logo">
-			<a href="{{ app.request.getSchemeAndHttpHost() }}"><h1>Awareit</h1></a>
+			<a href="{{ path('homepage') }}"><h1>Awareit</h1></a>
 		</div>
 		<div class="nav-point">
-			<a href="{{ app.request.getBaseURL() }}">Home</a>
+			<a href="{{ path('homepage') }}">Home</a>
 		</div>
 		<div class="nav-point">
 			<a href="#">About</a>
 		</div>
 		<div class="nav-point">
-			<a href="{{ app.request.getBaseURL() }}#service">Service</a>
+			<a href="{{ path('homepage') }}#service">Service</a>
 		</div>
 		<div class="nav-point">
-			<a href="{{ app.request.getBaseURL() }}#pricing">Preise</a>
+			<a href="{{ path('homepage') }}#pricing">Preise</a>
 		</div>
 		<div class="nav-point">
 			<a href="#">Kontakt</a>
 		</div>
 		<div class="nav-point">
-			<a href="{{ app.request.getBaseURL() }}/login">Login</a>
+			<a href="{{ path('homepage') }}login">Login</a>
 		</div>
 	</div>
 {% endblock %} 
