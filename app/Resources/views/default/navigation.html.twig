@@ -2,25 +2,25 @@
 	<div class="nav-bg"></div>
 	<div class="navigation ">
 		<div class="logo">
-			<a href="#"><h1>Awareit</h1></a>
+			<a href="{{ app.request.getBaseURL() }}"><h1>Awareit</h1></a>
 		</div>
 		<div class="nav-point">
-			<a href="#">Home</a>
+			<a href="{{ app.request.getBaseURL() }}">Home</a>
 		</div>
 		<div class="nav-point">
 			<a href="#">About</a>
 		</div>
 		<div class="nav-point">
-			<a href="#">Service</a>
+			<a href="{{ app.request.getBaseURL() }}#service">Service</a>
 		</div>
 		<div class="nav-point">
-			<a href="#">Preise</a>
+			<a href="{{ app.request.getBaseURL() }}#pricing">Preise</a>
 		</div>
 		<div class="nav-point">
 			<a href="#">Kontakt</a>
 		</div>
 		<div class="nav-point">
-			<a href="#">Login</a>
+			<a href="{{ app.request.getBaseURL() }}/login">Login</a>
 		</div>
 	</div>
 {% endblock %} 
