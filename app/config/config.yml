@@ -72,6 +72,10 @@ fos_user:
     db_driver: orm # other valid values are 'mongodb', 'couchdb' and 'propel'
     firewall_name: main
     user_class: AppBundle\Entity\User
+    registration:
+        form:
+            type: AppBundle\Form\RegistrationType
+            validation_groups: [AppBundleRegistration]
 
 sonata_block:
     default_contexts: [cms]
