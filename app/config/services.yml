@@ -4,11 +4,8 @@ parameters:
 #    parameter_name: value
 
 services:
-#    service_name:
-#        class: AppBundle\Directory\ClassName
-#        arguments: ["@another_service_name", "plain_value", "%parameter_name%"]
-
     app_user.customize_registrationform:
         class: AppBundle\UserBundle\EventListener\CustomizeRegistrationformListener
+        arguments: ['@mailer', '@fos_user.util.token_generator']
         tags:
             - { name: kernel.event_subscriber }
