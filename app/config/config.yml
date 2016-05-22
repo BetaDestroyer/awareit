@@ -71,9 +71,6 @@ swiftmailer:
 fos_user:
     db_driver: orm # other valid values are 'mongodb', 'couchdb' and 'propel'
     firewall_name: main
-    from_email:
-        address:        noreply@awareit.com
-        sender_name:    AwareIT Service
     user_class: AppBundle\Entity\User
     registration:
         form:
