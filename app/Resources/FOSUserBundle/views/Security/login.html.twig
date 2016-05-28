@@ -12,6 +12,7 @@
 		{% endif %}
 
 		<div class="form-wrapper">
+			<h2>Login</h2>
 			<form action="{{ path("fos_user_security_check") }}" method="post">
 			    <input type="hidden" name="_csrf_token" value="{{ csrf_token }}" />
 
@@ -33,6 +34,11 @@
 
 			    <input type="submit" id="_submit" class="btn btn-default submit-button" name="_submit" value="{{ 'security.login.submit'|trans }}" />
 			</form>
+		</div>
+
+		<div class="register-link form-wrapper">
+			<h2>{{ 'security.login.not_registered_yet'|trans }}</h2>
+			<a href="{{ path('homepage') }}register/" class="btn btn-default submit-button">{{ 'security.login.register'|trans }}</a>
 		</div>
 	</div>
 </div>

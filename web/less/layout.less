@@ -1,12 +1,23 @@
 @import url("variables.less");
 @import url(https://fonts.googleapis.com/css?family=Open+Sans:400,300,600,700,400italic);
 
+html {
+    position: relative;
+    min-height: 100%;
+}
+
 body {
-	font-family: 'Open Sans', sans-serif;;
+	font-family: 'Open Sans', sans-serif;
+    margin-bottom: 60px;
 }
 
 /* HOME */
-#home {}
+#home {
+    /* Negative indent footer by its height */
+    margin: 0 auto 0px; 
+    /* Pad bottom by footer height */
+    padding: 0px 0 74px;
+}
 
 /* CAROUSEL */
 
@@ -335,7 +346,9 @@ body {
 
 /* Footer */ 
 #footer {
-	position: relative;
+    position: absolute;
+    bottom: 0;
+    width: 100%;
 	text-align: center;
 	font-size: 13px;
     padding: 10px 15px;

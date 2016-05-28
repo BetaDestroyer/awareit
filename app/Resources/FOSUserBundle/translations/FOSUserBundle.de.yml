@@ -16,6 +16,8 @@ security:
         remember_me: 'E-Mail-Adresse merken'
         submit: Anmelden
         email: E-Mail-Adresse
+        register: Neu Registrieren
+        not_registered_yet: Noch kein Benutzerkonto?
 profile:
     show:
         username: Benutzername
@@ -38,6 +40,7 @@ registration:
     email:
         subject: 'Willkommen %username%!'
         message: "Hallo %username%!\n\nBesuchen Sie bitte folgende Seite, um Ihr Benutzerkonto zu bestätigen: %confirmationUrl%\n\nMit besten Grüßen,\ndas Team.\n"
+    create_new_user: Neues Benutzerkonto anlegen
 resetting:
     password_already_requested: 'Für diesen Benutzer wurde in den vergangenen 24 Stunden bereits ein neues Passwort beantragt.'
     check_email: 'Eine E-Mail wurde an %email% gesendet. Sie enthält einen Link, den Sie anklicken müssen, um Ihr Passwort zurückzusetzen.'
