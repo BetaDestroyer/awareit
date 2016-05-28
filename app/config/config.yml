@@ -78,6 +78,11 @@ fos_user:
             validation_groups: [AppBundleRegistration]
         confirmation:
             enabled: false
+    resetting:
+        email:
+            from_email:
+                address:        "%sender_adress%"
+                sender_name:    "%sender_name%"
 
 sonata_block:
     default_contexts: [cms]

@@ -10,6 +10,11 @@ services:
         tags:
             - { name: kernel.event_subscriber }
 
+    app_user.custom_registration_redirect:
+        class: AppBundle\UserBundle\EventListener\CustomRegistrationRedirect
+        arguments: ['@router']
+        tags:
+            - { name: kernel.event_subscriber }
 
     app.custom_mailer:
         class: AppBundle\CustomMailer\CustomMailer

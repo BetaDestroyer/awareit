@@ -31,6 +31,20 @@
     			width: 100%;
 	        }
 
+	        .remainder {
+	        	margin-bottom: 15px;
+	        }
+
+	        .forgotten-password-link {
+        		margin-top: 15px;
+        		position: relative;
+    			display: block;
+	        }
+
+	        .submit {
+	        	margin-top: 5px;
+	        }
+
 	        .submit-button {
 	        	width: 100%;
 	        }
@@ -61,7 +75,7 @@
 	    text-align: center; 
 
 	    form {
-	    	width: 30%;
+	    	width: 35%;
     		margin: 0 auto;
 
     		@media (max-width: @tablet-portrait) {
@@ -107,5 +121,44 @@
 	        	width: 100%;
 	        }
 	    }
+
+
+        .fos_user_resetting_reset {
+
+        	div {
+        		margin-bottom: 15px;
+
+        		ul {
+        			padding: 0px;
+        			li {
+        				list-style: none;
+    				    background-color: #f2dede;
+				        padding: 10px 20px;
+					    font-weight: 700;
+					    margin: 0 0 10px;
+        			}
+        		}
+
+        		input {
+        			width: 100%;
+				    height: 34px;
+				    padding: 6px 12px;
+				    background-color: #fff;
+				    border: 1px solid #ccc;
+				    border-radius: 4px;
+				    -webkit-box-shadow: inset 0 1px 1px rgba(0,0,0,.075);
+				    box-shadow: inset 0 1px 1px rgba(0,0,0,.075);
+				    -webkit-transition: border-color ease-in-out .15s,-webkit-box-shadow ease-in-out .15s;
+				    -o-transition: border-color ease-in-out .15s,box-shadow ease-in-out .15s;
+				    transition: border-color ease-in-out .15s,box-shadow ease-in-out .15s;
+				    font-size: 14px;
+				    line-height: 1.42857143;
+				    color: #555;
+				    display: block;
+        		}
+        	}
+
+        }
+        
 	}
 }  

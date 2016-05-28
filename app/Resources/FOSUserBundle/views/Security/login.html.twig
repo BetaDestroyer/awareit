@@ -26,19 +26,22 @@
 			    	<input type="password" id="password" class="form-control" name="_password" required="required" placeholder="{{ 'security.login.password'|trans }}"/>
 				</div>
 
-				<div class="checkbox">
+				<div class="checkbox remainder">
 			    	<label for="remember_me">
 			    		<input type="checkbox" id="remember_me" name="_remember_me" value="on" /> {{ 'security.login.remember_me'|trans }}
 			    	</label>
 		    	</div>
 
-			    <input type="submit" id="_submit" class="btn btn-default submit-button" name="_submit" value="{{ 'security.login.submit'|trans }}" />
+				<div class="form-group submit">
+			    	<input type="submit" id="_submit" class="btn btn-default submit-button" name="_submit" value="{{ 'security.login.submit'|trans }}" />
+					<a href="{{ path('fos_user_resetting_request') }}" class="forgotten-password-link">{{ 'security.login.forgotten_password'|trans }}</a>
+				</div>
 			</form>
 		</div>
 
 		<div class="register-link form-wrapper">
 			<h2>{{ 'security.login.not_registered_yet'|trans }}</h2>
-			<a href="{{ path('homepage') }}register/" class="btn btn-default submit-button">{{ 'security.login.register'|trans }}</a>
+			<a href="{{ path('fos_user_registration_register') }}" class="btn btn-default submit-button">{{ 'security.login.register'|trans }}</a>
 		</div>
 	</div>
 </div>

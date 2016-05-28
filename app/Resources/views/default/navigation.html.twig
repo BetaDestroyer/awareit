@@ -20,7 +20,15 @@
 			<a href="#">Kontakt</a>
 		</div>
 		<div class="nav-point">
-			<a href="{{ path('homepage') }}login">Login</a>
+			{% if is_granted("IS_AUTHENTICATED_REMEMBERED") %}
+		        <a href="{{ path('fos_user_profile_show') }}" class="username">{{ app.user.username }}</a>
+		        <span> | </span>
+		        <a href="{{ path('fos_user_security_logout') }}">
+		            {{ 'layout.logout'|trans({}, 'FOSUserBundle') }}
+		        </a>
+		    {% else %} 
+		        <a href="{{ path('fos_user_security_login') }}">{{ 'layout.login'|trans({}, 'FOSUserBundle') }}</a>
+		    {% endif %}
 		</div>
 	</div>
 	<div class="navigation-mobile">
@@ -48,7 +56,13 @@
 				<a href="#">Kontakt</a>
 			</div>
 			<div class="nav-point">
-				<a href="{{ path('homepage') }}login">Login</a>
+				{% if is_granted("IS_AUTHENTICATED_REMEMBERED") %}
+			        <a href="{{ path('fos_user_security_logout') }}">
+			            {{ 'layout.logout'|trans({}, 'FOSUserBundle') }}
+			        </a>
+			    {% else %} 
+			        <a href="{{ path('fos_user_security_login') }}">{{ 'layout.login'|trans({}, 'FOSUserBundle') }}</a>
+			    {% endif %}
 			</div>
 		</div>
 	</div>

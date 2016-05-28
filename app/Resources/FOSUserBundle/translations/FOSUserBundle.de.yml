@@ -18,6 +18,7 @@ security:
         email: E-Mail-Adresse
         register: Neu Registrieren
         not_registered_yet: Noch kein Benutzerkonto?
+        forgotten_password: Passwort vergessen?
 profile:
     show:
         username: Benutzername
@@ -46,7 +47,7 @@ resetting:
     check_email: 'Eine E-Mail wurde an %email% gesendet. Sie enthält einen Link, den Sie anklicken müssen, um Ihr Passwort zurückzusetzen.'
     request:
         invalid_username: 'Der Benutzername oder die E-Mail-Adresse "%username%" existiert nicht.'
-        username: 'Benutzername oder E-Mail-Adresse'
+        username: 'E-Mail-Adresse'
         submit: 'Passwort zurücksetzen'
     reset:
         submit: 'Passwort ändern'

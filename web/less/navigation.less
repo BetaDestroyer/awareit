@@ -62,6 +62,22 @@
 				color: #eee;  
 			} 
 		}
+
+		.username {
+			@media(max-width: @desktop) {
+		    	display: none; 
+		    } 
+		}
+
+		span {
+			text-decoration: none;
+			color: #ccc;
+		    font-size: 16px;
+
+		    @media(max-width: @desktop) {
+		    	display: none; 
+		    } 
+		}
 	}
 }  
 
@@ -99,6 +115,16 @@
 		    text-decoration: none;
 		    color: #eee;
 	    }
+
+	    span {
+			text-decoration: none;
+			color: #ccc;
+		    font-size: 16px;
+
+		    @media(max-width: @tablet-landscape) {
+		    	display: none; 
+		    } 
+		}
     }
 
     .nav-button {
