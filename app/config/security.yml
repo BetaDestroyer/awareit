@@ -35,7 +35,7 @@ security:
             form_login:
                 provider: fos_userbundle
                 csrf_token_generator: security.csrf.token_manager
-                default_target_path:  /profile
+                default_target_path:  /dashboard
                 # if you are using Symfony < 2.8, use the following config instead:
                 # csrf_provider: form.csrf_provider
 
@@ -51,3 +51,4 @@ security:
         - { path: ^/group/new, role: ROLE_ADMIN }
         - { path: ^/group/list, role: ROLE_ADMIN }
         - { path: ^/group/.+/delete, role: ROLE_ADMIN }
+        - { path: ^/backend, role: ROLE_USER }

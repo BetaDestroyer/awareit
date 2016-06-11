@@ -1,0 +1,21 @@
+<div class="col-xs-12 main">
+	<div class="nav-item">
+		<a href="{{ path('user_backend_dashboard') }}"><i class="fa fa-tachometer" aria-hidden="true"></i> Dashboard</a>
+	</div>
+	<div class="nav-item">
+		<a href=""><i class="fa fa-file-text" aria-hidden="true"></i> Kurse</a>
+	</div>
+	<div class="nav-item">
+		<a href=""><i class="fa fa-user" aria-hidden="true"></i> Profil</a>
+	</div>
+	<div class="nav-item">
+		<a href=""><i class="fa fa-calendar-check-o" aria-hidden="true"></i> Kalender</a>
+	</div>
+	{% if is_granted('ROLE_MANAGER') %}
+	<div class="manager-tools">
+		<div class="nav-item">
+			<a href="{{path('user_backend_manage_users') }}"><i class="fa fa-users" aria-hidden="true"></i> Mitarbeiter</a>
+		</div>
+	</div>
+	{% endif %}
+</div>

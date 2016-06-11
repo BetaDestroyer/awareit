@@ -8,20 +8,14 @@
 			<a href="{{ path('homepage') }}">Home</a>
 		</div>
 		<div class="nav-point">
-			<a href="#">About</a>
-		</div>
-		<div class="nav-point">
 			<a href="{{ path('homepage') }}#service">Service</a>
 		</div>
 		<div class="nav-point">
 			<a href="{{ path('homepage') }}#pricing">Preise</a>
 		</div>
 		<div class="nav-point">
-			<a href="#">Kontakt</a>
-		</div>
-		<div class="nav-point">
 			{% if is_granted("IS_AUTHENTICATED_REMEMBERED") %}
-		        <a href="{{ path('fos_user_profile_show') }}" class="username">{{ app.user.username }}</a>
+		        <a href="{{ path('user_backend') }}" class="username">{{ app.user.username }}</a>
 		        <span> | </span>
 		        <a href="{{ path('fos_user_security_logout') }}">
 		            {{ 'layout.logout'|trans({}, 'FOSUserBundle') }}
@@ -44,16 +38,15 @@
 				<a href="{{ path('homepage') }}">Home</a>
 			</div>
 			<div class="nav-point">
-				<a href="#">About</a>
-			</div>
-			<div class="nav-point">
 				<a href="{{ path('homepage') }}#service">Service</a>
 			</div>
 			<div class="nav-point">
 				<a href="{{ path('homepage') }}#pricing">Preise</a>
 			</div>
 			<div class="nav-point">
-				<a href="#">Kontakt</a>
+				{% if is_granted("IS_AUTHENTICATED_REMEMBERED") %}
+			        <a href="{{ path('user_backend') }}" class="username">{{ app.user.username }}</a>
+			    {% endif %}
 			</div>
 			<div class="nav-point">
 				{% if is_granted("IS_AUTHENTICATED_REMEMBERED") %}

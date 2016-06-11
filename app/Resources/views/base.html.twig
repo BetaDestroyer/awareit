@@ -11,7 +11,7 @@
     </head>
     <body>
         {{include('default/navigation.html.twig')}}
-        <div class="wrapper">{% block body %}{% endblock %}</div>
+        <div class="wrapper">{% block body %}{% block content %}{% endblock %}{% endblock %}</div>
         {{include('default/footer.html.twig')}}
         {% block javascripts %}{% endblock %}
     </body>

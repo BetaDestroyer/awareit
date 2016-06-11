@@ -6,7 +6,7 @@ parameters:
 services:
     app_user.customize_registrationform:
         class: AppBundle\UserBundle\EventListener\CustomizeRegistrationformListener
-        arguments: ['@app.custom_mailer', '@fos_user.util.token_generator', '@fos_user.group_manager', '@doctrine.orm.entity_manager']
+        arguments: ['@app.custom_mailer', '@fos_user.util.token_generator', '@fos_user.group_manager', '@doctrine.orm.entity_manager', '@router', '@fos_user.user_manager']
         tags:
             - { name: kernel.event_subscriber }
 

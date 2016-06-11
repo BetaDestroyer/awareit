@@ -4,10 +4,14 @@ namespace AppBundle\UserBundle\EventListener;
 use FOS\UserBundle\FOSUserEvents;
 use FOS\UserBundle\Event\FormEvent;
 use Symfony\Component\EventDispatcher\EventSubscriberInterface;
+use Symfony\Component\Routing\Generator\UrlGeneratorInterface;
+use Symfony\Component\HttpFoundation\RedirectResponse;
 use FOS\UserBundle\Event\UserEvent;
 use FOS\UserBundle\Model\UserInterface;
 use FOS\UserBundle\Model\GroupManager;
 use FOS\UserBundle\Model\GroupManagerInterface;
+use FOS\UserBundle\Model\UserManager;
+use FOS\UserBundle\Model\UserManagerInterface;
 use FOS\UserBundle\Util\TokenGenerator;
 use FOS\UserBundle\Form\Type\RegistrationFormType;
 use FOS\UserBundle\Mailer\MailerInterface;
@@ -24,13 +28,17 @@ class CustomizeRegistrationformListener implements  EventSubscriberInterface
 	protected $tokenGenerator;
     protected $groupManager;
     protected $objectManager;
+    protected $userManager;
+    protected $router;
 
-	public function __construct(CustomMailer $mailer, TokenGenerator $tokenGenerator, GroupManager $groupManager, ObjectManager $objectManager)
+	public function __construct(CustomMailer $mailer, TokenGenerator $tokenGenerator, GroupManager $groupManager, ObjectManager $objectManager, UrlGeneratorInterface $router, UserManager $userManager)
 	{
 		$this->mailer = $mailer;
 		$this->tokenGenerator = $tokenGenerator;
         $this->groupManager = $groupManager;
         $this->objectManager = $objectManager;
+        $this->router = $router;
+        $this->userManager = $userManager;
 	}
 
 	/**
@@ -69,8 +77,18 @@ class CustomizeRegistrationformListener implements  EventSubscriberInterface
         $this->objectManager->persist($group);
         $this->objectManager->flush();
 
+        // Assign Manager to his group
+        $newGroup = $this->objectManager->getRepository('AppBundle:Group')->findOneByName("fos_group_".$user->getEmail());
+        $user->addGroup($newGroup);
+        $this->userManager->updateUser($user);
+        $this->objectManager->flush();
+
         // Send email with random generated password
     	$this->mailer->sendCustomRegistrationMail($user->getEmail(), $password);
+
+        // Redirect to Manager/User Dashboard 
+        $url = $this->router->generate('user_backend');
+        $event->setResponse(new RedirectResponse($url));
 
     }
 

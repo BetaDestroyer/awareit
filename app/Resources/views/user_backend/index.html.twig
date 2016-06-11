@@ -1,0 +1,14 @@
+{% extends 'base.html.twig' %}
+
+
+{% block body %}
+
+<div class="backend-navigation col-xs-3">
+	{{include('user_backend/backend_nav.html.twig')}}
+</div>
+<div class="backend-content col-xs-9">
+	{% block content %}
+	{% endblock %}
+</div>
+
+{% endblock %}
