@@ -14,7 +14,7 @@
 	{% if is_granted('ROLE_MANAGER') %}
 	<div class="manager-tools">
 		<div class="nav-item">
-			<a href="{{path('user_backend_manage_users') }}"><i class="fa fa-users" aria-hidden="true"></i> Mitarbeiter</a>
+			<a href="{{ path('user_backend_manage_users') }}"><i class="fa fa-users" aria-hidden="true"></i> Mitarbeiter</a>
 		</div>
 	</div>
 	{% endif %}

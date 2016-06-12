@@ -1,5 +1,34 @@
 {% extends 'user_backend/index.html.twig' %}
 
 {% block content %}
-Manage Users here:
+<h2>Manage Users here:</h2>
+<div class="user-form col-xs-12">
+	<div class="table-responsive">
+		<table class="table">
+			<thead>
+				<tr>
+					<th>#</th>
+					<th>E-Mail-Adresse</th>
+				</tr>
+			</thead>
+			<tbody>
+				{% for key, item in users %}
+				<tr>
+					<td>{{ key + 1 }}</td>
+					<td>{{ item.username }}</td>
+				</tr>
+				{% endfor %}
+				<tr>
+					<td>
+						Mitarbeiter hinzufügen:
+					</td>
+					<td>
+						Formular
+					</td>
+				</tr>
+			</tbody>
+		</table>
+	</div>
+</div>
+    
 {% endblock %}

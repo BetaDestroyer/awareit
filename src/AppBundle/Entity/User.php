@@ -19,7 +19,7 @@ class User extends BaseUser
     protected $id;
 
     /**
-     * @ORM\ManyToMany(targetEntity="AppBundle\Entity\Group")
+     * @ORM\ManyToMany(targetEntity="AppBundle\Entity\Group", inversedBy="users")
      * @ORM\JoinTable(name="fos_user_user_group",
      *      joinColumns={@ORM\JoinColumn(name="user_id", referencedColumnName="id")},
      *      inverseJoinColumns={@ORM\JoinColumn(name="group_id", referencedColumnName="id")}
@@ -45,7 +45,6 @@ class User extends BaseUser
     {
         $tokenGenerator = $this->getContainer()->get('fos_user.util.token_generator');
         $password = substr($tokenGenerator->generateToken(), 0, 8); // 8 chars
-        var_dump($password);
         return $password;
     }
 
