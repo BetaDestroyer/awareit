@@ -11,8 +11,37 @@
     </head>
     <body>
         {{include('default/navigation.html.twig')}}
-        <div class="wrapper">{% block body %}{% block content %}{% endblock %}{% endblock %}</div>
+        <div class="wrapper">
+            {% for type, flashMessages in app.session.flashbag.all() %}
+                <div class="modal fade" id="myModal" tabindex="-1" role="dialog" >
+                    <div class="modal-dialog" role="document">
+                        <div class="modal-content">
+                            <div class="modal-header">
+                                <button type="button" class="close" data-dismiss="modal" aria-label="Close"><span aria-hidden="true">&times;</span></button>
+                            </div>
+                            <div class="modal-body">
+                                {% for flashMessage in flashMessages %}
+                                <div class="alert alert-{{ type }}">
+                                    {{ flashMessage|trans }}
+                                </div>
+                                {% endfor %}
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            {% endfor %}
+            {% block body %}
+                {% block content %}
+                {% endblock %}
+            {% endblock %}
+        </div>
         {{include('default/footer.html.twig')}}
         {% block javascripts %}{% endblock %}
     </body>
 </html>
+
+<script type="text/javascript">
+    $(window).load(function(){
+        $('#myModal').modal('show');
+    });
+</script>

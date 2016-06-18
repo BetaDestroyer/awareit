@@ -16,6 +16,11 @@
 				<tr>
 					<td>{{ key + 1 }}</td>
 					<td>{{ item.username }}</td>
+					<td>
+						{% if item.manager == 0 %}
+						<a href="{{ path('user_backend_delete_user', {'id': item.id }) }}"><button>Löschen</button></a>
+						{% endif %}
+					</td>
 				</tr>
 				{% endfor %}
 				<tr>
@@ -23,7 +28,9 @@
 						Mitarbeiter hinzufügen:
 					</td>
 					<td>
-						Formular
+						{{ form_start(add_user_form) }}
+						{{ form_widget(add_user_form) }}
+						{{ form_end(add_user_form) }}
 					</td>
 				</tr>
 			</tbody>
