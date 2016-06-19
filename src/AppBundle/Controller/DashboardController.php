@@ -86,7 +86,7 @@ class DashboardController extends Controller
 			// check if is empty || not email
 
         	var_dump(empty($addUserForm->getData()['email']));
-        	var_dump(filter_var($addUserForm->getData()['email']), FILTER_VALIDATE_EMAIL));
+        	var_dump(filter_var($addUserForm->getData()['email'], FILTER_VALIDATE_EMAIL));
 
         	die();
         	/*
