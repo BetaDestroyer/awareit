@@ -83,6 +83,14 @@ class DashboardController extends Controller
         // On save 
         if ($addUserForm->isSubmitted() && $addUserForm->isValid() && $addUserForm->get('save')->isClicked()) {
 
+			// check if is empty || not email
+			if ( empty($addUserForm->getData()['email'])) || preg_match("/[a-zA-Z0-9_-.+]+@[a-zA-Z0-9-]+.[a-zA-Z]+/", $addUserForm->getData()['email']))  ) {
+				if($e->getPrevious()->getCode() == 23000){
+					$this->get('session')->getFlashBag()->add('error', 'Feld darf nicht leer sein und muss ein @ beinhalten.');  
+			    }
+			    return $this->redirectToRoute('user_backend_manage_users');
+			}
+
 	        // Create new user
 	        $userManager = $this->get('fos_user.user_manager'); 
 			$user = $userManager->createUser(); 
@@ -112,7 +120,7 @@ class DashboardController extends Controller
 			    return $this->redirectToRoute('user_backend_manage_users');
 			}
 
-			$this->get('session')->getFlashBag()->add('success', sprintf('Der Mitarbeite wurde erfolgreich angelegt. Es wird eine E-Mail an %s mit den Zugangsdaten gesendet.', $addUserForm->getData()['email']));
+			$this->get('session')->getFlashBag()->add('success', sprintf('Der Mitarbeiter wurde erfolgreich angelegt. Es wird eine E-Mail an %s mit den Zugangsdaten gesendet.', $addUserForm->getData()['email']));
 
 			// Send email with random generated password
 			$mailer = $this->get('app.custom_mailer');
