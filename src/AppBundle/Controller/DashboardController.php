@@ -84,8 +84,9 @@ class DashboardController extends Controller
         if ($addUserForm->isSubmitted() && $addUserForm->isValid() && $addUserForm->get('save')->isClicked()) {
 
 			// check if is empty || not email
-        	var_dump(preg_match("/[a-zA-Z0-9_-.+]+@[a-zA-Z0-9-]+.[a-zA-Z]+/", $addUserForm->getData()['email']));
+
         	var_dump(empty($addUserForm->getData()['email']));
+        	var_dump(filter_var($addUserForm->getData()['email']), FILTER_VALIDATE_EMAIL));
 
         	die();
         	/*
