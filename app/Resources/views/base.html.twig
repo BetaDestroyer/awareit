@@ -13,7 +13,7 @@
         {{include('default/navigation.html.twig')}}
         <div class="wrapper">
             {% for type, flashMessages in app.session.flashbag.all() %}
-                <div class="modal fade" id="myModal" tabindex="-1" role="dialog" >
+                <div class="modal fade" id="messages" tabindex="-1" role="dialog" >
                     <div class="modal-dialog" role="document">
                         <div class="modal-content">
                             <div class="modal-header">
@@ -42,6 +42,6 @@
 
 <script type="text/javascript">
     $(window).load(function(){
-        $('#myModal').modal('show');
+        $('#messages').modal('show');
     });
 </script>

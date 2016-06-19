@@ -1,41 +1,56 @@
 {% extends 'user_backend/index.html.twig' %}
 
 {% block content %}
-<h2>Manage Users here:</h2>
+<h2 class="col-xs-12">Mitarbeiter</h2>
 <div class="user-form col-xs-12">
 	<div class="table-responsive">
-		<table class="table">
+		<table class="table manage-users">
 			<thead>
 				<tr>
 					<th>#</th>
-					<th>E-Mail-Adresse</th>
+					<th colspan="3">E-Mail-Adresse</th>
 				</tr>
 			</thead>
 			<tbody>
 				{% for key, item in users %}
-				<tr>
+				<tr class="{% if item.manager == 1 %}info manager{% endif %}">
 					<td>{{ key + 1 }}</td>
 					<td>{{ item.username }}</td>
-					<td>
+					<td class="delete">
 						{% if item.manager == 0 %}
-						<a href="{{ path('user_backend_delete_user', {'id': item.id }) }}"><button>Löschen</button></a>
+						<a href="{{ path('user_backend_delete_user', {'id': item.id }) }}"><button type="button" class="btn btn-danger delete-user">Löschen</button></a>
 						{% endif %}
 					</td>
 				</tr>
 				{% endfor %}
-				<tr>
+				<tr class="add-employee">
 					<td>
-						Mitarbeiter hinzufügen:
+						<strong>Mitarbeiter per E-Mail hinzufügen:</strong>
 					</td>
-					<td>
-						{{ form_start(add_user_form) }}
-						{{ form_widget(add_user_form) }}
-						{{ form_end(add_user_form) }}
+					{{ form_start(add_user_form) }}
+					<td class="mail">
+						{{ form_row(add_user_form.email) }}
 					</td>
+					<td class="save">
+						{{ form_row(add_user_form.save) }}
+					</td>
+					{{ form_end(add_user_form) }}
 				</tr>
 			</tbody>
 		</table>
 	</div>
 </div>
+
+<script>
+$(function() {
+	$('.delete-user').click(function(e) {
+		e.preventDefault();
+	    if(confirm("Mitarbeiter wirklich entfernen? Alle Daten zu diesem Mitarbeiter werden unwiderruflich gelöscht.")) {
+	        var link = $( '.delete a' ).attr('href');
+	        document.location.href = link;
+	    }
+	});
+});
+</script>
     
 {% endblock %}

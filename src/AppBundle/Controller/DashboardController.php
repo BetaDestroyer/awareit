@@ -153,12 +153,12 @@ class DashboardController extends Controller
 			$user->removeGroup($group);
 		}
 
-		// Remove user completely
-		$userManager->deleteUser($user);
-
 		$em = $this->getDoctrine()->getEntityManager(); 
 		$em->persist($user); 
 		$em->flush(); 
+
+		// Remove user completely
+		$userManager->deleteUser($user);
 
 		return $this->redirectToRoute('user_backend_manage_users');
 	}
