@@ -84,7 +84,7 @@ class DashboardController extends Controller
         if ($addUserForm->isSubmitted() && $addUserForm->isValid() && $addUserForm->get('save')->isClicked()) {
 
 			// check if is empty || not email
-			if ( empty($addUserForm->getData()['email'])) || preg_match("/[a-zA-Z0-9_-.+]+@[a-zA-Z0-9-]+.[a-zA-Z]+/", $addUserForm->getData()['email']))  ) {
+			if ( empty($addUserForm->getData()['email']) || preg_match("/[a-zA-Z0-9_-.+]+@[a-zA-Z0-9-]+.[a-zA-Z]+/", $addUserForm->getData()['email']) )  {
 				if($e->getPrevious()->getCode() == 23000){
 					$this->get('session')->getFlashBag()->add('error', 'Feld darf nicht leer sein und muss ein @ beinhalten.');  
 			    }
