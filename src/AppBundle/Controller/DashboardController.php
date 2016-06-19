@@ -84,12 +84,16 @@ class DashboardController extends Controller
         if ($addUserForm->isSubmitted() && $addUserForm->isValid() && $addUserForm->get('save')->isClicked()) {
 
 			// check if is empty || not email
+        	var_dump(preg_match("/[a-zA-Z0-9_-.+]+@[a-zA-Z0-9-]+.[a-zA-Z]+/", $addUserForm->getData()['email']));
+        	var_dump(empty($addUserForm->getData()['email']));
+
+        	die();
+        	/*
 			if ( empty($addUserForm->getData()['email']) || preg_match("/[a-zA-Z0-9_-.+]+@[a-zA-Z0-9-]+.[a-zA-Z]+/", $addUserForm->getData()['email']) )  {
-				if($e->getPrevious()->getCode() == 23000){
-					$this->get('session')->getFlashBag()->add('error', 'Feld darf nicht leer sein und muss ein @ beinhalten.');  
-			    }
+				$this->get('session')->getFlashBag()->add('error', 'Feld darf nicht leer sein und muss ein @ beinhalten.');
 			    return $this->redirectToRoute('user_backend_manage_users');
 			}
+			*/
 
 	        // Create new user
 	        $userManager = $this->get('fos_user.user_manager'); 
