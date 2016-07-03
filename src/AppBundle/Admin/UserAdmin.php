@@ -14,9 +14,6 @@ class UserAdmin extends Admin
     protected function configureFormFields(FormMapper $formMapper)
     {
         $formMapper
-            ->add('username', 'text', array(
-                'label' => 'Username'
-            ))
             ->add('email', 'text', array(
                 'label' => 'Email'
             ))
@@ -28,7 +25,6 @@ class UserAdmin extends Admin
     {
        $datagridMapper
             ->add('id')
-            ->add('username')
             ->add('email')
        ;
     }
@@ -38,7 +34,6 @@ class UserAdmin extends Admin
     {
         $listMapper
             ->addIdentifier('id')
-            ->add('username')
             ->add('email')
        ;
     }
@@ -48,7 +43,6 @@ class UserAdmin extends Admin
     {
         $showMapper
            ->add('id')
-           ->add('username')
            ->add('email')
        ;
     }

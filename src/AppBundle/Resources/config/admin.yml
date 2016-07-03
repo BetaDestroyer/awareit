@@ -1,17 +1,6 @@
 # src/AppBundle/Resources/config/admin.yml
 
 services:
-    app.admin.post:
-        class: AppBundle\Admin\PostAdmin
-        tags:
-            - { name: sonata.admin, manager_type: orm, group: "Content", label: "Post" }
-        arguments:
-            - ~
-            - AppBundle\Entity\Post
-            - ~
-        calls:
-            - [ setTranslationDomain, [AppBundle]]
-
     app.admin.user:
         class: AppBundle\Admin\UserAdmin
         tags:
@@ -19,6 +8,39 @@ services:
         arguments:
             - ~
             - AppBundle\Entity\User
+            - ~
+        calls:
+            - [ setTranslationDomain, [AppBundle]]
+
+    app.admin.course:
+        class: AppBundle\Admin\CourseAdmin
+        tags:
+            - { name: sonata.admin, manager_type: orm, group: "Kurse", label: "Kurse" }
+        arguments:
+            - ~
+            - AppBundle\Entity\Course
+            - ~
+        calls:
+            - [ setTranslationDomain, [AppBundle]]
+
+    app.admin.quiz:
+        class: AppBundle\Admin\QuizAdmin
+        tags:
+            - { name: sonata.admin, manager_type: orm, group: "Kurse", label: "Quiz" }
+        arguments:
+            - ~
+            - AppBundle\Entity\Quiz
+            - ~
+        calls:
+            - [ setTranslationDomain, [AppBundle]]
+
+    app.admin.question:
+        class: AppBundle\Admin\QuestionAdmin
+        tags:
+            - { name: sonata.admin, manager_type: orm, group: "Kurse", label: "Quizfragen" }
+        arguments:
+            - ~
+            - AppBundle\Entity\Question
             - ~
         calls:
             - [ setTranslationDomain, [AppBundle]]

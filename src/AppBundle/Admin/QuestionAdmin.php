@@ -8,32 +8,35 @@ use Sonata\AdminBundle\Form\FormMapper;
 use Sonata\AdminBundle\Datagrid\ListMapper;
 use Sonata\AdminBundle\Datagrid\DatagridMapper;
 
-class PostAdmin extends Admin 
+class QuestionAdmin extends Admin 
 {
+	public function toString($object)
+    {
+        return $object instanceof CourseAdmin
+            ? $object->getTitle()
+            : 'Fragen'; // shown in the breadcrumb on the create view
+    }
+
 	// Fields to be shown on create/edit forms
     protected function configureFormFields(FormMapper $formMapper)
     {
         $formMapper
-            ->add('title', 'text', array(
-                'label' => 'Post Title'
+            ->add('questionText', 'text', array(
+                'label' => 'Textfrage'
             ))
-            ->add('author', 'entity', array(
-                'class' => 'AppBundle\Entity\User'
+            ->add('points', 'text', array(
+                'label' => 'Punkte'
             ))
-
-            // if no type is specified, SonataAdminBundle tries to guess it
-            ->add('body')
-
-            // ...
-       ;
+        ;
     }
 
     // Fields to be shown on filter forms
     protected function configureDatagridFilters(DatagridMapper $datagridMapper)
     {
        $datagridMapper
-            ->add('title')
-            ->add('author')
+            ->add('id')
+            ->add('questionText')
+            ->add('points')
        ;
     }
 
@@ -41,9 +44,9 @@ class PostAdmin extends Admin
     protected function configureListFields(ListMapper $listMapper)
     {
         $listMapper
-            ->addIdentifier('title')
-            ->add('slug')
-            ->add('author')
+            ->addIdentifier('id')
+            ->add('questionText')
+            ->add('points')
        ;
     }
 
@@ -51,9 +54,9 @@ class PostAdmin extends Admin
     protected function configureShowFields(ShowMapper $showMapper)
     {
         $showMapper
-           ->add('title')
-           ->add('slug')
-           ->add('author')
+           ->add('id')
+           ->add('questionText')
+           ->add('points')
        ;
     }
 }
