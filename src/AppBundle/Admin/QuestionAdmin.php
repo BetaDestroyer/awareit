@@ -27,6 +27,14 @@ class QuestionAdmin extends Admin
             ->add('points', 'text', array(
                 'label' => 'Punkte'
             ))
+            ->add('answer', 'sonata_type_collection', array(
+                'type_options' => array(),
+                'label' => 'Antworten'
+            ), array(
+                'edit' => 'inline',
+                'inline' => 'table',
+                'sortable' => 'position',
+            ))
         ;
     }
 
@@ -58,5 +66,24 @@ class QuestionAdmin extends Admin
            ->add('questionText')
            ->add('points')
        ;
+    }
+
+    public function prePersist($object)
+    {
+        if( !is_null($object->getAnswer()) ) {
+            foreach ($object->getAnswer() as $answer) {
+                $answer->setQuestion($object);
+            }
+        }
+        
+    }
+
+    public function preUpdate($object)
+    {
+        if( !is_null($object->getAnswer()) ) {
+            foreach ($object->getAnswer() as $answer) {
+                $answer->setQuestion($object);
+            }
+        }
     }
 }

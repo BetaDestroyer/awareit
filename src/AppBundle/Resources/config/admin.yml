@@ -44,3 +44,14 @@ services:
             - ~
         calls:
             - [ setTranslationDomain, [AppBundle]]
+
+    app.admin.answer:
+        class: AppBundle\Admin\AnswerAdmin
+        tags:
+            - { name: sonata.admin, manager_type: orm, group: "Kurse", label: "Antworten" }
+        arguments:
+            - ~
+            - AppBundle\Entity\Answer
+            - ~
+        calls:
+            - [ setTranslationDomain, [AppBundle]]

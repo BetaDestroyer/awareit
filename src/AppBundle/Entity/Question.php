@@ -34,6 +34,11 @@ class Question
     private $quiz;
 
     /**
+     * @ORM\OneToMany(targetEntity="Answer", mappedBy="question", cascade={"persist", "merge", "remove"}, orphanRemoval=true)
+     */
+    private $answer;
+
+    /**
      * Get id
      *
      * @return integer
@@ -113,5 +118,46 @@ class Question
     public function getQuiz()
     {
         return $this->quiz;
+    }
+    /**
+     * Constructor
+     */
+    public function __construct()
+    {
+        $this->answer = new \Doctrine\Common\Collections\ArrayCollection();
+    }
+
+    /**
+     * Add answer
+     *
+     * @param \AppBundle\Entity\Answer $answer
+     *
+     * @return Question
+     */
+    public function addAnswer(\AppBundle\Entity\Answer $answer)
+    {
+        $this->answer[] = $answer;
+
+        return $this;
+    }
+
+    /**
+     * Remove answer
+     *
+     * @param \AppBundle\Entity\Answer $answer
+     */
+    public function removeAnswer(\AppBundle\Entity\Answer $answer)
+    {
+        $this->answer->removeElement($answer);
+    }
+
+    /**
+     * Get answer
+     *
+     * @return \Doctrine\Common\Collections\Collection
+     */
+    public function getAnswer()
+    {
+        return $this->answer;
     }
 }

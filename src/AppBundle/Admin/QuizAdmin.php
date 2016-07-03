@@ -26,6 +26,7 @@ class QuizAdmin extends Admin
             ))
             ->add('question', 'sonata_type_collection', array(
                 'type_options' => array(),
+                'label' => 'Fragen'
             ), array(
                 'edit' => 'inline',
                 'inline' => 'table',
@@ -63,9 +64,13 @@ class QuizAdmin extends Admin
 
     public function prePersist($object)
     {
+
         if( !is_null($object->getQuestion()) ) {
             foreach ($object->getQuestion() as $question) {
                 $question->setQuiz($object);
+                foreach ($question->getAnswer() as $answer) {
+                    $answer->setQuestion($question);
+                }
             }
         }
         
@@ -73,10 +78,15 @@ class QuizAdmin extends Admin
 
     public function preUpdate($object)
     {
+
         if( !is_null($object->getQuestion()) ) {
             foreach ($object->getQuestion() as $question) {
                 $question->setQuiz($object);
+                foreach ($question->getAnswer() as $answer) {
+                    $answer->setQuestion($question);
+                }
             }
         }
+
     }
 }
