@@ -40,6 +40,10 @@ class CourseAdmin extends Admin
             ->add('video', 'text', array(
                 'label' => 'Video-link'
             ))
+            ->add('thumbnail', 'file', array(
+                'required' => false,
+                'data_class' => null
+            ))
             ->add('quiz', 'sonata_type_model', array(
             'class' => 'AppBundle\Entity\Quiz',
             'property' => 'name',
@@ -57,7 +61,9 @@ class CourseAdmin extends Admin
 			->add('name')
 			->add('description')
 			->add('video')
+            ->add('thumbnail')
 			->add('createdAt')
+            ->add('updated')
        ;
     }
 
@@ -70,7 +76,9 @@ class CourseAdmin extends Admin
 			->addIdentifier('name')
 			->add('description')
 			->add('video')
+            ->add('thumbnail')
 			->add('createdAt')
+            ->add('updated')
        ;
     }
 
@@ -83,7 +91,26 @@ class CourseAdmin extends Admin
 			->add('name')
 			->add('description')
 			->add('video')
+            ->add('thumbnail')
 			->add('createdAt')
+            ->add('updated')
        ;
+    }
+
+    public function prePersist($thumbnail)
+    {
+        $this->manageFileUpload($thumbnail);
+    }
+
+    public function preUpdate($thumbnail)
+    {
+        $this->manageFileUpload($thumbnail);
+    }
+
+    private function manageFileUpload($thumbnail)
+    {
+        if ($thumbnail->getThumbnail()) {
+            $thumbnail->refreshUpdated();
+        }
     }
 }

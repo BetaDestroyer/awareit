@@ -3,10 +3,12 @@
 namespace AppBundle\Entity;
 
 use Doctrine\ORM\Mapping as ORM;
+use Symfony\Component\Validator\Constraints as Assert;
 
 /**
  * @ORM\Entity
  * @ORM\Table(name="course")
+ * @ORM\HasLifecycleCallbacks()
  */
 class Course 
 {
@@ -36,6 +38,79 @@ class Course
      * @ORM\Column(type="text")
      */
     private $video;
+
+    /**
+     * @ORM\Column(type="datetime")
+     */
+    private $updated;
+
+    /**
+     * @ORM\Column(type="string")
+     *
+     * @Assert\NotBlank(message="Please, upload the thumbnail as an image file.")
+     * @Assert\File(mimeTypes={ "image/png", "image/jpeg" })
+     */
+    private $thumbnail;
+
+    public function getUploadRootDirectory()
+    {
+        return $this->getWebDirectory() . $this->getUploadDirectory();
+    }
+
+    public function getWebDirectory()
+    {
+        return realpath(__DIR__ . '/../../../web/');
+    }
+
+    public function getUploadDirectory()
+    {
+        return "/images/thumbnails/";
+    }
+
+    /**
+     * Manages the copying of the file to the relevant place on the server
+     */
+    public function upload()
+    {
+        // the file property can be empty if the field is not required
+        if (null === $this->getThumbnail()) {
+            return;
+        }
+
+        // we use the original file name here but you should
+        // sanitize it at least to avoid any security issues
+
+        // move takes the target directory and target filename as params
+        $this->getThumbnail()->move(
+            $this->getUploadRootDirectory(),
+            $this->getThumbnail()->getClientOriginalName()
+        );
+
+        // set the path property to the filename where you've saved the file
+        $this->thumbnail = $this->getThumbnail()->getClientOriginalName();
+
+        // clean up the file property as you won't need it anymore
+        // if we clean, the name will not be saved to db
+        // $this->setThumbnail(null);
+    }
+
+    /**
+     * Lifecycle callback to upload the file to the server
+     * @ORM\PrePersist
+     * @ORM\PreUpdate
+     */
+    public function lifecycleFileUpload()
+    {
+        $this->upload();
+    }
+
+    /**
+     * Updates the hash value to force the preUpdate and postUpdate events to fire
+     */
+    public function refreshUpdated()
+    {
+        $this->setUpdated(new \DateTime());
+    }
 
     /** 
      * @ORM\Column(type="datetime", name="created_at") 
@@ -206,5 +281,53 @@ class Course
     public function getIsActive()
     {
         return $this->isActive;
+    }
+
+    /**
+     * Set thumbnail
+     *
+     * @param string $thumbnail
+     *
+     * @return Course
+     */
+    public function setThumbnail($thumbnail)
+    {
+        $this->thumbnail = $thumbnail;
+
+        return $this;
+    }
+
+    /**
+     * Get thumbnail
+     *
+     * @return string
+     */
+    public function getThumbnail()
+    {
+        return $this->thumbnail;
+    }
+
+    /**
+     * Set updated
+     *
+     * @param \DateTime $updated
+     *
+     * @return Course
+     */
+    public function setUpdated($updated)
+    {
+        $this->updated = $updated;
+
+        return $this;
+    }
+
+    /**
+     * Get updated
+     *
+     * @return \DateTime
+     */
+    public function getUpdated()
+    {
+        return $this->updated;
     }
 }

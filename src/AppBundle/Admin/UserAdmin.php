@@ -17,7 +17,7 @@ class UserAdmin extends Admin
             ->add('email', 'text', array(
                 'label' => 'Email'
             ))
-       ;
+        ;
     }
 
     // Fields to be shown on filter forms
@@ -26,7 +26,8 @@ class UserAdmin extends Admin
        $datagridMapper
             ->add('id')
             ->add('email')
-       ;
+            ->add('roles')
+        ;
     }
 
     // Fields to be shown on lists
@@ -35,15 +36,17 @@ class UserAdmin extends Admin
         $listMapper
             ->addIdentifier('id')
             ->add('email')
-       ;
+            ->add('roles')
+        ;
     }
 
     // Fields to be shown on show action
     protected function configureShowFields(ShowMapper $showMapper)
     {
         $showMapper
-           ->add('id')
-           ->add('email')
-       ;
+            ->add('id')
+            ->add('email')
+            ->add('roles')
+        ;
     }
 }

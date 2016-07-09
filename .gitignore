@@ -19,3 +19,4 @@
 /web/.htaccess
 /node_modules
 /gulpfile.js
+/web/images/*
