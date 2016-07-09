@@ -4,6 +4,7 @@ namespace AppBundle\Entity;
 
 use Doctrine\ORM\Mapping as ORM;
 use Symfony\Component\Validator\Constraints as Assert;
+use Symfony\Component\HttpFoundation\File\UploadedFile;
 
 /**
  * @ORM\Entity
@@ -45,9 +46,12 @@ class Course
     private $updated;
 
     /**
-     * @ORM\Column(type="string", nullable=true)
-     *
-     * @Assert\File(mimeTypes={ "image/png", "image/jpeg" })
+     * Unmapped property to handle file uploads
+     */
+    private $file;
+
+    /**
+     * @ORM\Column(type="string")
      */
     private $thumbnail;
 
@@ -67,12 +71,32 @@ class Course
     }
 
     /**
+     * Sets file.
+     *
+     * @param UploadedFile $file
+     */
+    public function setFile(UploadedFile $file = null)
+    {
+        $this->file = $file;
+    }
+
+    /**
+     * Get file.
+     *
+     * @return UploadedFile
+     */
+    public function getFile()
+    {
+        return $this->file;
+    }
+
+    /**
      * Manages the copying of the file to the relevant place on the server
      */
     public function upload()
     {
         // the file property can be empty if the field is not required
-        if (null === $this->getThumbnail()) {
+        if (null === $this->getFile()) {
             return;
         }
 
@@ -80,17 +104,17 @@ class Course
         // sanitize it at least to avoid any security issues
 
         // move takes the target directory and target filename as params
-        $this->getThumbnail()->move(
+        $this->getFile()->move(
             $this->getUploadRootDirectory(),
-            $this->getThumbnail()->getClientOriginalName()
+            $this->getFile()->getClientOriginalName()
         );
 
         // set the path property to the filename where you've saved the file
-        $this->thumbnail = $this->getThumbnail()->getClientOriginalName();
+        $this->file = $this->getFile()->getClientOriginalName();
 
         // clean up the file property as you won't need it anymore
         // if we clean, the name will not be saved to db
-        // $this->setThumbnail(null);
+        $this->setFile(null);
     }
 
     /**
