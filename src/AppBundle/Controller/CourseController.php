@@ -18,13 +18,15 @@ class CourseController extends Controller
         ->getRepository('AppBundle:Course')
         ->findByIsActive(1);
 
+        $baseurl = $request->getScheme() . '://' . $request->getHttpHost() . $request->getBasePath();
+
         $coursePreviews = array();
         // Collect data for course previews
         foreach($courses as $key => $course) {
         	$coursePreviews[$key]["id"] = $course->getId();
         	$coursePreviews[$key]["name"] = $course->getName();
         	$coursePreviews[$key]["description"] = $course->getDescription();
-        	$coursePreviews[$key]["thumbnail"] = realpath($this->get('kernel')->getRootDir() . '/../web/images/thumbnails').'/'.$course->getThumbnail();
+        	$coursePreviews[$key]["thumbnail"] = $baseurl."/images/thumbnails/".$course->getThumbnail();
         }
 
         return $this->render('user_backend/courses.html.twig', array(
