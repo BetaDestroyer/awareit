@@ -45,9 +45,8 @@ class Course
     private $updated;
 
     /**
-     * @ORM\Column(type="string")
+     * @ORM\Column(type="string", nullable=true)
      *
-     * @Assert\NotBlank(message="Please, upload the thumbnail as an image file.")
      * @Assert\File(mimeTypes={ "image/png", "image/jpeg" })
      */
     private $thumbnail;
