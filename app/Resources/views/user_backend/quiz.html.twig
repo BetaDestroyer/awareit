@@ -1,0 +1,23 @@
+{% extends 'base.html.twig' %}
+
+{% block body %}
+<div class="quiz-wrapper col-lg-12">
+	<div class="quiz-title">
+		<h1>{{ quizInfo.name }}</h1>
+	</div>
+	<div class="quiz-content">
+		{% for question in quizData %}
+			<div class="quiz-question">{{ question.questionText }}</div>
+			{% for answer in question.answers %}
+			<div class="quiz-anwers radio">
+				<label><input type="radio" name="optradio-{{ question.id }}">{{ answer.answerText }}</label>
+			</div>
+			{% endfor %}
+			<div class="btn btn-info" role="button">Nächste Frage</div>
+		{% endfor %}
+	</div>
+</div>
+
+<script src="{{ asset('js/quiz.js') }}"></script>
+
+{% endblock %}

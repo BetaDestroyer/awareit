@@ -6,7 +6,7 @@
 <div class="courses-list col-lg-12">
 	{% for course in courses %}
 	<div class="course col-lg-4">
-		<a href="course/{{ course.id }}" alt="" >
+		<a href="{{ path('course', {'id': course.id}) }}" alt="" >
 			<img src="{{ course.thumbnail }}" alt="{{ course.description }}" />
 			<div class="course-name">{{ course.name }}</div>
 			<div class="call-to-action">Kurs jetzt starten!</div>

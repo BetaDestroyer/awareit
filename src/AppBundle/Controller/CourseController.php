@@ -33,4 +33,29 @@ class CourseController extends Controller
         	"courses" => $coursePreviews
     	));
     }
+
+    /**
+     * @Route("/backend/course/{id}", name="course")
+     */
+    public function showCourseAction(Request $request, $id)
+    {
+        // Get course by id
+    	$courses = $this->getDoctrine()
+        ->getRepository('AppBundle:Course')
+        ->findById($id);
+
+        $courseInfo = array();
+        // Collect data for course info page
+        foreach($courses as $key => $course) {
+        	$courseInfo["id"] = $course->getId();
+        	$courseInfo["name"] = $course->getName();
+        	$courseInfo["description"] = $course->getDescription();
+        	$courseInfo["video"] = $course->getVideo();
+        	$courseInfo["quizId"] = $course->getQuiz()->getId();
+        }
+
+        return $this->render('user_backend/course.html.twig', array(
+        	"course" => $courseInfo
+    	));
+    }
 }

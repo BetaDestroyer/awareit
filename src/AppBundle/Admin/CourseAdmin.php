@@ -34,7 +34,7 @@ class CourseAdmin extends Admin
             ->add('name', 'text', array(
                 'label' => 'Name'
             ))
-            ->add('description', 'text', array(
+            ->add('description', 'textarea', array(
                 'label' => 'Beschreibung'
             ))
             ->add('video', 'text', array(

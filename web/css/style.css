@@ -13,3 +13,4 @@
 .backend-navigation{background-color:#999;height:100vh}.backend-navigation .main{padding:100px 0 0 17px}.backend-navigation .main .nav-item{padding:0 0 15px;font-size:16px}.backend-navigation .main .nav-item a{color:#ccc;text-decoration:none}.backend-navigation .main .nav-item a:hover{color:#fff}.backend-navigation .main .nav-item a .fa{margin-right:5px}
 .backend-content{padding-top:75px}
 .manage-users tbody tr td{vertical-align:middle;height:50px}.manage-users tbody tr .delete,.manage-users tbody tr .save{text-align:right}.manage-users tbody tr .mail label[for=add_employee_email]{display:none}
+.course-wrapper{margin-top:100px}.course-wrapper .course-info .course-title h1{margin-top:0}.course-wrapper .course-info .course-description h4{line-height:28px}.course-wrapper .course-video iframe{width:80%;margin:0 auto;display:block}
