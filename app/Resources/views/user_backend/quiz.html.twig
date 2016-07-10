@@ -7,13 +7,16 @@
 	</div>
 	<div class="quiz-content">
 		{% for question in quizData %}
-			<div class="quiz-question">{{ question.questionText }}</div>
-			{% for answer in question.answers %}
-			<div class="quiz-anwers radio">
-				<label><input type="radio" name="optradio-{{ question.id }}">{{ answer.answerText }}</label>
+			<div class="question-wrapper question{{ question.id }}">
+				<div class="quiz-question">{{ question.questionText }}</div>
+				{% for answer in question.answers %}
+				<div class="quiz-anwers radio">
+					<label><input type="radio" name="optradio-{{ question.id }}" class="answer-opt" value="{{ answer.id }}">{{ answer.answerText }}</label>
+				</div>
+				{% endfor %}
+				<div class="btn btn-info next" role="button">Nächste Frage</div>
+				<div class="btn btn-info show-results" role="button">Ergebnisse anzeigen</div>
 			</div>
-			{% endfor %}
-			<div class="btn btn-info" role="button">Nächste Frage</div>
 		{% endfor %}
 	</div>
 </div>

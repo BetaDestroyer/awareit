@@ -27,6 +27,15 @@ class User extends BaseUser
      */
     protected $groups;
 
+    /**
+     * @ORM\ManyToMany(targetEntity="AppBundle\Entity\Answer", inversedBy="users")
+     * @ORM\JoinTable(name="fos_user_answer",
+     *      joinColumns={@ORM\JoinColumn(name="user_id", referencedColumnName="id")},
+     *      inverseJoinColumns={@ORM\JoinColumn(name="answer_id", referencedColumnName="id")}
+     * )
+     */
+    protected $answers;
+
     public function __construct()
     {
         parent::__construct();
@@ -48,5 +57,37 @@ class User extends BaseUser
         return $password;
     }
 
+    /**
+     * Add answer
+     *
+     * @param \AppBundle\Entity\Answer $answer
+     *
+     * @return User
+     */
+    public function addAnswer(\AppBundle\Entity\Answer $answer)
+    {
+        $this->answers[] = $answer;
 
+        return $this;
+    }
+
+    /**
+     * Remove answer
+     *
+     * @param \AppBundle\Entity\Answer $answer
+     */
+    public function removeAnswer(\AppBundle\Entity\Answer $answer)
+    {
+        $this->answers->removeElement($answer);
+    }
+
+    /**
+     * Get answers
+     *
+     * @return \Doctrine\Common\Collections\Collection
+     */
+    public function getAnswers()
+    {
+        return $this->answers;
+    }
 }

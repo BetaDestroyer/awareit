@@ -5,6 +5,7 @@ namespace AppBundle\Controller;
 use Sensio\Bundle\FrameworkExtraBundle\Configuration\Route;
 use Symfony\Bundle\FrameworkBundle\Controller\Controller;
 use Symfony\Component\HttpFoundation\Request;
+use Symfony\Component\HttpFoundation\JsonResponse;
 
 class QuizController extends Controller
 {
@@ -65,6 +66,88 @@ class QuizController extends Controller
         	"quizInfo" => $quizData,
         	"quizData" => $questionsData
     	));
+    }
+
+    /**
+     * @Route("/backend/quiz/{quizId}/answer/{questionId}/{answerId}", name="quiz-answer")
+     */
+    public function saveAnswerAction(Request $request, $quizId, $questionId, $answerId)
+    {
+    	/* 
+    	// get user
+    	$user = $this->getUser();
+
+		// get given answer
+    	$answers = $this->getDoctrine()
+        ->getRepository('AppBundle:Answer')
+        ->findByQuestion($questionId);
+
+        $givenAnswer = $this->getDoctrine()
+        ->getRepository('AppBundle:Answer')
+        ->findById($answerId);
+
+        // Collect ids of answers of question
+        $answerIds = array();
+        foreach($answers as $answer) {
+        	array_push($answerIds, $answer->getId());
+        }
+
+        // Überprüfen ob die Antwort zu der gestellten Frage gehört
+        // Wenn ja dann Überprüfen ob die Antwort nicht schon gegeben wurde 
+        // Wenn nein dann nichts updaten
+
+        // Check if answer is already given
+
+        if (count($user->getAnswers()) == 0) {
+
+        	// check if answer belongs to question
+    		if(in_array($answerId, $answerIds) == true) {
+    			
+    			// set answer for user
+		        foreach($givenAnswer as $answer) {
+		        	$user->addAnswer($answer);
+		        }
+
+		        // Update DB
+		        $em = $this->getDoctrine()->getEntityManager(); 
+				$em->persist($user); 
+				$em->flush(); 
+
+				return new JsonResponse(array('response' => "answer for question added first time"));
+
+    		}
+
+        } else {
+
+        	foreach ($user->getAnswers() as $givenAnswers) {
+
+        		var_dump($givenAnswers->getId());
+        		var_dump($answerIds);
+
+	        	if(in_array($givenAnswers->getId(), $answerIds) == false) {
+
+	        		var_dump("123");
+
+	        		// set answer for user
+			        foreach($givenAnswer as $answer) {
+			        	$user->addAnswer($answer);
+			        }
+
+			        // Update DB
+			        $em = $this->getDoctrine()->getEntityManager(); 
+					$em->persist($user); 
+					$em->flush(); 
+
+					return new JsonResponse(array('response' => "answer added"));
+
+	        	}
+	    		
+	    	}
+
+        }
+    	*/
+
+    	return new JsonResponse(array('response' => "nothing added"));
     }
 
 }
