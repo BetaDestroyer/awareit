@@ -38,6 +38,11 @@ class Quiz
     private $answer;
 
     /**
+     * @ORM\OneToMany(targetEntity="UserQuiz", mappedBy="quiz", cascade={"persist", "remove"}, orphanRemoval=TRUE)
+     */
+    protected $userQuiz;
+
+    /**
      * Constructor
      */
     public function __construct()
@@ -179,5 +184,39 @@ class Quiz
     public function getAnswer()
     {
         return $this->answer;
+    }
+
+    /**
+     * Add userQuiz
+     *
+     * @param \AppBundle\Entity\UserQuiz $userQuiz
+     *
+     * @return Quiz
+     */
+    public function addUserQuiz(\AppBundle\Entity\UserQuiz $userQuiz)
+    {
+        $this->userQuiz[] = $userQuiz;
+
+        return $this;
+    }
+
+    /**
+     * Remove userQuiz
+     *
+     * @param \AppBundle\Entity\UserQuiz $userQuiz
+     */
+    public function removeUserQuiz(\AppBundle\Entity\UserQuiz $userQuiz)
+    {
+        $this->userQuiz->removeElement($userQuiz);
+    }
+
+    /**
+     * Get userQuiz
+     *
+     * @return \Doctrine\Common\Collections\Collection
+     */
+    public function getUserQuiz()
+    {
+        return $this->userQuiz;
     }
 }

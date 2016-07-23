@@ -36,6 +36,11 @@ class User extends BaseUser
      */
     protected $answers;
 
+    /**
+     * @ORM\OneToMany(targetEntity="UserQuiz", mappedBy="user", cascade={"persist", "remove"}, orphanRemoval=TRUE)
+     */
+    protected $userQuiz;
+
     public function __construct()
     {
         parent::__construct();
@@ -89,5 +94,39 @@ class User extends BaseUser
     public function getAnswers()
     {
         return $this->answers;
+    }
+
+    /**
+     * Add userQuiz
+     *
+     * @param \AppBundle\Entity\UserQuiz $userQuiz
+     *
+     * @return User
+     */
+    public function addUserQuiz(\AppBundle\Entity\UserQuiz $userQuiz)
+    {
+        $this->userQuiz[] = $userQuiz;
+
+        return $this;
+    }
+
+    /**
+     * Remove userQuiz
+     *
+     * @param \AppBundle\Entity\UserQuiz $userQuiz
+     */
+    public function removeUserQuiz(\AppBundle\Entity\UserQuiz $userQuiz)
+    {
+        $this->userQuiz->removeElement($userQuiz);
+    }
+
+    /**
+     * Get userQuiz
+     *
+     * @return \Doctrine\Common\Collections\Collection
+     */
+    public function getUserQuiz()
+    {
+        return $this->userQuiz;
     }
 }

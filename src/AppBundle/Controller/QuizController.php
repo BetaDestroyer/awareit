@@ -6,6 +6,8 @@ use Sensio\Bundle\FrameworkExtraBundle\Configuration\Route;
 use Symfony\Bundle\FrameworkBundle\Controller\Controller;
 use Symfony\Component\HttpFoundation\Request;
 use Symfony\Component\HttpFoundation\JsonResponse;
+use Symfony\Component\Validator\Constraints as Assert;
+use AppBundle\Entity\UserQuiz;
 
 class QuizController extends Controller
 {
@@ -69,85 +71,127 @@ class QuizController extends Controller
     }
 
     /**
-     * @Route("/backend/quiz/{quizId}/answer/{questionId}/{answerId}", name="quiz-answer")
+     * @Route("/backend/quiz/{quizId}/answer/{questionId}/{answerId}/{counterId}", name="quiz-answer")
      */
-    public function saveAnswerAction(Request $request, $quizId, $questionId, $answerId)
+    public function saveAnswerAction(Request $request, $quizId, $questionId, $answerId, $counterId)
     {
-    	/* 
     	// get user
     	$user = $this->getUser();
 
-		// get given answer
-    	$answers = $this->getDoctrine()
+    	// get quiz
+    	$quizes = $this->getDoctrine()
+        ->getRepository('AppBundle:Quiz')
+        ->findById($quizId);
+
+        if( empty($quizes) ) {
+        	return new JsonResponse(array('message' => "There is no Quiz with such an ID"), 401);
+        }
+
+        // Check if there is a UserQuiz Entity for current user and quiz
+		$userQuiz = $this->getDoctrine()
+        ->getRepository('AppBundle:UserQuiz')
+        ->findOneBy(array(
+			'user' => $user->getId(),
+			'quiz' => $quizId,
+		));
+
+		if( $userQuiz == null ) {
+			// Create new UserQuiz relation data
+	        $userQuiz = new UserQuiz();
+	        $userQuiz->setUser($user);
+	        $userQuiz->setquizComplete(FALSE);
+
+	        foreach($quizes as $quiz) {
+	        	$userQuiz->setQuiz($quiz);
+	        }
+		}
+
+        $userQuiz->setCounter($counterId);
+
+        // Update DB
+        $em = $this->getDoctrine()->getEntityManager(); 
+		$em->persist($userQuiz); 
+		$em->flush(); 
+
+		// get answers of question
+    	$answersOfQuestion = $this->getDoctrine()
         ->getRepository('AppBundle:Answer')
         ->findByQuestion($questionId);
 
+		// Überprüfen ob die Antwort zu der gestellten Frage gehört
+        if( empty($answersOfQuestion) ) {
+        	return new JsonResponse(array('message' => "The given answer do not belong to this question"), 401);
+        }
+
+        // Überprüfen ob eine Antwort auf die Frage gegeben ist 
+
+        // Hole alle Antworten von user 
+        $allAnswersOfUser = $user->getAnswers();
+
+        // Für jede Antwort der Frage
+        foreach($answersOfQuestion as $answerOfQuestion) {
+
+        	// Für jede Antwort des users
+        	foreach($allAnswersOfUser as $answerOfUser) {
+
+        		// Prüfe ob eine der Antworten des Users zu eine der Antworten der Frage gegeben ist 
+        		if( $answerOfUser->getId() == $answerOfQuestion->getId()) {
+        			return new JsonResponse(array('message' => "An answer for this Question is already given"), 401);
+        		}
+
+        	}
+
+        }
+
+        // Antwort speichern
+
+        // hole Antwort Object anhand gegebener ID
         $givenAnswer = $this->getDoctrine()
         ->getRepository('AppBundle:Answer')
         ->findById($answerId);
 
-        // Collect ids of answers of question
-        $answerIds = array();
-        foreach($answers as $answer) {
-        	array_push($answerIds, $answer->getId());
+        if( empty($givenAnswer) ) {
+        	return new JsonResponse(array('message' => "There is no such answer with given ID"), 401);
         }
 
-        // Überprüfen ob die Antwort zu der gestellten Frage gehört
-        // Wenn ja dann Überprüfen ob die Antwort nicht schon gegeben wurde 
-        // Wenn nein dann nichts updaten
-
-        // Check if answer is already given
-
-        if (count($user->getAnswers()) == 0) {
-
-        	// check if answer belongs to question
-    		if(in_array($answerId, $answerIds) == true) {
-    			
-    			// set answer for user
-		        foreach($givenAnswer as $answer) {
-		        	$user->addAnswer($answer);
-		        }
-
-		        // Update DB
-		        $em = $this->getDoctrine()->getEntityManager(); 
-				$em->persist($user); 
-				$em->flush(); 
-
-				return new JsonResponse(array('response' => "answer for question added first time"));
-
-    		}
-
-        } else {
-
-        	foreach ($user->getAnswers() as $givenAnswers) {
-
-        		var_dump($givenAnswers->getId());
-        		var_dump($answerIds);
-
-	        	if(in_array($givenAnswers->getId(), $answerIds) == false) {
-
-	        		var_dump("123");
-
-	        		// set answer for user
-			        foreach($givenAnswer as $answer) {
-			        	$user->addAnswer($answer);
-			        }
-
-			        // Update DB
-			        $em = $this->getDoctrine()->getEntityManager(); 
-					$em->persist($user); 
-					$em->flush(); 
-
-					return new JsonResponse(array('response' => "answer added"));
-
-	        	}
-	    		
-	    	}
-
+        // Antwort Object mit User Object verknüpfen
+        foreach($givenAnswer as $answer) {
+        	$user->addAnswer($answer);
         }
-    	*/
 
-    	return new JsonResponse(array('response' => "nothing added"));
+        // Update DB
+        $em = $this->getDoctrine()->getEntityManager(); 
+		$em->persist($user); 
+		$em->flush(); 
+
+    	return new JsonResponse(array('response' => "Given answer saved to DB"));
+    }
+
+    /**
+     * @Route("/backend/quiz/{quizId}/counter/", name="get-quiz-counter")
+     */
+    public function getCounterAction(Request $request, $quizId)
+    {
+    	// get user
+    	$user = $this->getUser();
+
+    	$quizOfUser = $this->getDoctrine()
+        ->getRepository('AppBundle:UserQuiz')
+        ->findOneBy(array(
+			'user' => $user->getId(),
+			'quiz' => $quizId,
+		));
+
+		if( $quizOfUser == null ) {
+			$json = json_encode(0);
+			return new JsonResponse(array('response' => $json));
+		}
+
+		$counter = $quizOfUser->getCounter();
+
+		$json = json_encode($counter);
+
+		return new JsonResponse(array('response' => $json));
     }
 
 }

@@ -7,7 +7,7 @@
 	</div>
 	<div class="quiz-content">
 		{% for question in quizData %}
-			<div class="question-wrapper question{{ question.id }}">
+			<div class="question-wrapper question{{ question.id }}" id="{{ question.id }}">
 				<div class="quiz-question">{{ question.questionText }}</div>
 				{% for answer in question.answers %}
 				<div class="quiz-anwers radio">
