@@ -9,13 +9,21 @@
 		{% for question in quizData %}
 			<div class="question-wrapper question{{ question.id }}" id="{{ question.id }}">
 				<div class="quiz-question">{{ question.questionText }}</div>
-				{% for answer in question.answers %}
-				<div class="quiz-anwers radio">
-					<label><input type="radio" name="optradio-{{ question.id }}" class="answer-opt" value="{{ answer.id }}">{{ answer.answerText }}</label>
+				<div class="quiz-answers">
+					{% for answer in question.answers %}
+					<div class="quiz-answer radio">
+						<input type="radio" name="optradio-{{ question.id }}" class="answer-opt" id="answer-{{ answer.id }}" value="{{ answer.id }}">
+						<label for="answer-{{ answer.id }}"><span>{{ answer.answerText }}</span></label>
+					</div>
+					{% endfor %}
 				</div>
-				{% endfor %}
-				<div class="btn btn-info next" role="button">Nächste Frage</div>
-				<div class="btn btn-info show-results" role="button">Ergebnisse anzeigen</div>
+				<div class="btn btn-info next-question" role="button">Nächste Frage</div>
+				<a href="{{ path('quiz-results', {'id': quizInfo.id} )  }}" class="show-results-link">
+					<div class="btn btn-info show-results" role="button">Ergebnisse anzeigen</div>
+				</a>
+				<a href="{{ app.request.headers.get('referer') }}" class="back-link">
+					<div class="btn btn-info back-btn" role="button">Zurück</div>
+				</a>
 			</div>
 		{% endfor %}
 	</div>

@@ -3,6 +3,7 @@
 namespace AppBundle\Controller;
 
 use Sensio\Bundle\FrameworkExtraBundle\Configuration\Route;
+use Sensio\Bundle\FrameworkExtraBundle\Configuration\Method;
 use Symfony\Bundle\FrameworkBundle\Controller\Controller;
 use Symfony\Component\HttpFoundation\Request;
 use Symfony\Component\HttpFoundation\JsonResponse;
@@ -13,60 +14,16 @@ class QuizController extends Controller
 {
     /**
      * @Route("/backend/quiz/{id}", name="quiz")
+     * @Method({"GET", "POST"})
      */
     public function renderQuizAction(Request $request, $id)
     {
-        // Get Quiz by ID
-    	$quiz = $this->getDoctrine()
-        ->getRepository('AppBundle:Quiz')
-        ->findById($id);
-
-        // Get Data of Quiz
-        $quizData = array();
-        foreach($quiz as $data) {
-        	$quizId = $data->getId(); 
-
-        	$quizData["id"] = $quizId;
-        	$quizData["name"] = $data->getName();
-        }
-
-        // Get Questions of Quiz
-        $questions = $this->getDoctrine()
-        ->getRepository('AppBundle:Question')
-        ->findByQuiz($id);
-
-        // Get Data of Questions
-        $questionsData = array();
-        $questionIds = array();
-        foreach($questions as $key => $question) {
-        	$questionId = $question->getId();
-        	$questionsData[$questionId]["id"] = $question->getId();
-        	$questionsData[$questionId]["questionText"] = $question->getQuestionText();
-        	$questionsData[$questionId]["points"] = $question->getPoints();
-
-        	// Build extra array to fetch all answers at one query
-        	$questionIds[] = $questionId;
-        }
-
-        // Get Answers of Questions
-        $answers = $this->getDoctrine()
-        ->getRepository('AppBundle:Answer')
-        ->findByQuestion($questionIds);
-
-        // Get Data of Answers and merge it with Question Array
-        foreach($answers as $key => $answer) {
-
-        	$questionsData[$answer->getQuestion()->getId()]["answers"][$key] = array(
-        		"id" => $answer->getId(),
-        		"answerText" => $answer->getAnswerText(),
-        		"isCorrect" => $answer->getIsCorrect(),
-    		);
-
-        }
+        $quizData 		= $this->getQuizData($id);
+        $questionsData 	= $this->getQAndAData($id);
 
         return $this->render('user_backend/quiz.html.twig', array(
-        	"quizInfo" => $quizData,
-        	"quizData" => $questionsData
+        	"quizInfo" 	=> $quizData,
+        	"quizData" 	=> $questionsData,
     	));
     }
 
@@ -164,6 +121,30 @@ class QuizController extends Controller
 		$em->persist($user); 
 		$em->flush(); 
 
+		// Check if all answers of the quiz are given and set quiz to solved
+		// Get Questions of Quiz
+        $questions = $this->getDoctrine()
+        ->getRepository('AppBundle:Question')
+        ->findByQuiz($quizId);
+
+        $quizOfUser = $this->getDoctrine()
+        ->getRepository('AppBundle:UserQuiz')
+        ->findOneBy(array(
+			'user' => $user->getId(),
+			'quiz' => $quizId,
+		));
+
+		$counter = $quizOfUser->getCounter();
+
+		if(count($questions) == $counter) {
+			$quizOfUser->setQuizComplete(true);
+		}
+
+		// Update DB
+        $em = $this->getDoctrine()->getEntityManager(); 
+		$em->persist($quizOfUser); 
+		$em->flush(); 
+
     	return new JsonResponse(array('response' => "Given answer saved to DB"));
     }
 
@@ -192,6 +173,115 @@ class QuizController extends Controller
 		$json = json_encode($counter);
 
 		return new JsonResponse(array('response' => $json));
+    }
+
+    public function getQAndAData( $id )
+    {
+		// Get Questions of Quiz
+        $questions = $this->getDoctrine()
+        ->getRepository('AppBundle:Question')
+        ->findByQuiz($id);
+
+        // Get Data of Questions
+        $questionsData = array();
+        $questionIds = array();
+        foreach($questions as $key => $question) {
+        	$questionId = $question->getId();
+        	$questionsData[$questionId]["id"] = $question->getId();
+        	$questionsData[$questionId]["questionText"] = $question->getQuestionText();
+        	$questionsData[$questionId]["points"] = $question->getPoints();
+
+        	// Build extra array to fetch all answers at one query
+        	$questionIds[] = $questionId;
+        }
+
+        // Get Answers of Questions
+        $answers = $this->getDoctrine()
+        ->getRepository('AppBundle:Answer')
+        ->findByQuestion($questionIds);
+
+        // Get Data of Answers and merge it with Question Array
+        foreach($answers as $key => $answer) {
+
+        	$questionsData[$answer->getQuestion()->getId()]["answers"][$key] = array(
+        		"id" => $answer->getId(),
+        		"answerText" => $answer->getAnswerText(),
+        		"isCorrect" => $answer->getIsCorrect(),
+    		);
+
+        }
+
+        return $questionsData;
+    }
+
+    public function getQuizData( $id )
+    {
+		// Get Quiz by ID
+    	$quiz = $this->getDoctrine()
+        ->getRepository('AppBundle:Quiz')
+        ->findById($id);
+
+        // Get Data of Quiz
+        $quizData = array();
+        foreach($quiz as $data) {
+        	$quizId = $data->getId(); 
+
+        	$quizData["id"] = $quizId;
+        	$quizData["name"] = $data->getName();
+        }
+
+        return $quizData;
+    }
+
+    /**
+     * @Route("/backend/quiz/{id}/results/", name="quiz-results")
+     */
+    public function renderResultsAction(Request $request, $id)
+    {
+    	// get user
+    	$user 			= $this->getUser();
+    	$quizData 		= $this->getQuizData($id);
+        $questionsData 	= $this->getQAndAData($id);
+
+        $quizOfUser = $this->getDoctrine()
+        ->getRepository('AppBundle:UserQuiz')
+        ->findOneBy(array(
+			'user' => $user->getId(),
+			'quiz' => $id,
+		));
+
+        // If quiz is not complete redirect to Quiz
+		if($quizOfUser->getQuizComplete() == false) {
+			return $this->redirectToRoute('quiz', array("id" => $id));
+		}
+
+        // Get given answers
+        $allAnswersOfUser = $user->getAnswers();
+        $givenAnswerIds = array();
+
+        // Extract given answer ids
+        foreach($allAnswersOfUser as $answer) {
+        	array_push($givenAnswerIds, $answer->getId());
+        }
+
+        // Set given answer to answer array
+        foreach($questionsData as &$question) {
+
+        	foreach($question["answers"] as &$answer) {
+
+        		if ( in_array($answer["id"], $givenAnswerIds) == true ) {
+        			$answer["givenAnswer"] = true;
+        		} else {
+        			$answer["givenAnswer"] = false;
+        		}
+
+        	}
+        }
+
+        return $this->render('user_backend/quiz-results.html.twig', array(
+        	"quizInfo" => $quizData,
+        	"quizData" => $questionsData
+    	));
     }
 
 }

@@ -1,0 +1,32 @@
+{% extends 'base.html.twig' %}
+
+{% block body %}
+<div class="quiz-wrapper col-lg-12">
+	<div class="quiz-title">
+		<h1>{{ quizInfo.name }} - Lösungen & Ergebnisse</h1>
+	</div>
+	<div class="quiz-content">
+		{% for question in quizData %}
+			<div class="question-wrapper question{{ question.id }}" id="{{ question.id }}">
+				<div class="quiz-question">{{ question.questionText }}</div>
+				{% for answer in question.answers %}
+				<div class="quiz-anwers radio">
+					<label>
+						<input 
+							type="radio" 
+							disabled 
+							name="optradio-{{ question.id }}" 
+							{% if answer.givenAnswer == true %} checked {% endif %} 
+							class="answer-opt {% if answer.isCorrect == true %} correct-answer {% endif %}" 
+							value="{{ answer.id }}"
+						>
+						{{ answer.answerText }}
+					</label>
+				</div>
+				{% endfor %}
+			</div>
+		{% endfor %}
+	</div>
+</div>
+
+{% endblock %}
