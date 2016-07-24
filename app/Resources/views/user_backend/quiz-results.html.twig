@@ -7,26 +7,29 @@
 	</div>
 	<div class="quiz-content">
 		{% for question in quizData %}
-			<div class="question-wrapper question{{ question.id }}" id="{{ question.id }}">
+			<div class="question-wrapper-results question{{ question.id }}" id="{{ question.id }}">
 				<div class="quiz-question">{{ question.questionText }}</div>
-				{% for answer in question.answers %}
-				<div class="quiz-anwers radio">
-					<label>
-						<input 
-							type="radio" 
-							disabled 
-							name="optradio-{{ question.id }}" 
-							{% if answer.givenAnswer == true %} checked {% endif %} 
-							class="answer-opt {% if answer.isCorrect == true %} correct-answer {% endif %}" 
-							value="{{ answer.id }}"
-						>
-						{{ answer.answerText }}
-					</label>
+				<div class="quiz-answers">
+					{% for answer in question.answers %}
+					<div class="quiz-answer {% if answer.isCorrect == true %} correct-answer {% endif %} radio result-view">
+							<input 
+								type="radio" 
+								disabled 
+								name="optradio-{{ question.id }}" 
+								{% if answer.givenAnswer == true %} checked {% endif %} 
+								class="answer-opt" 
+								value="{{ answer.id }}"
+								id="answer-{{ answer.id }}"
+							>
+						<label for="answer-{{ answer.id }}">{{ answer.answerText }}</label>
+					</div>
+					{% endfor %}
 				</div>
-				{% endfor %}
 			</div>
 		{% endfor %}
 	</div>
 </div>
+
+<script src="{{ asset('js/results.js') }}"></script>
 
 {% endblock %}

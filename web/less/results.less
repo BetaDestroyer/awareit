@@ -13,20 +13,15 @@
 	}
 }
 
-.question-wrapper.results {
-	display: block;
-}
-
-.question-wrapper {
-	display: none;
-    margin: 0px auto;
+.question-wrapper-results {
+    margin: 0px auto; 
     margin-top: 25px;
     position: relative;
     width: 700px;
 
     @media(max-width: @phone-landscape) { 
     	width: 90%;
-    } 
+    }
 
     .quiz-question{
 	    font-size: 24px;
@@ -47,10 +42,6 @@
 		    	padding: 10px 0px;
 		    }
 
-		    &:hover {
-		    	background-color: #aaa;
-		    }
-
 		    label {
 		    	padding-left: 20px;
 	    	    width: 100%;
@@ -64,12 +55,6 @@
 	    	    }
 		    }
 
-	    }
-
-	    .result-view {
-			&:nohover {
-		    	background-color: none;
-		    }
 	    }
 
 	    .given-answer {
@@ -160,8 +145,6 @@ input[type=radio]:not(:checked) + label::before {
 }
 
 input[type='radio']:hover  + label::before {
-	background: #ddd;
-	box-shadow: inset 0 0 0 2px white;
 }
 
 input[type='radio']:checked  + label::before {
