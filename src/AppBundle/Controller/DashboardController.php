@@ -87,6 +87,10 @@ class DashboardController extends Controller
 				)
 			);
 
+			if( count($usersQuizComplete) <= 0 ) {
+				$activeCourse["absolvers"] = 0;
+			}
+
 			foreach( $usersQuizComplete as $userQuizComplete) {
 				$activeCourse["absolvers"] = $i;
 				$i++;
