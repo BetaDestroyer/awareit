@@ -21,7 +21,7 @@ class DashboardController extends Controller
 	public function indexAction(Request $request)
 	{
 		// replace this example code with whatever you need
-        return $this->render('user_backend/dashboard.html.twig', [
+        return $this->render('user_backend/backend.html.twig', [
             'base_dir' => realpath($this->getParameter('kernel.root_dir').'/..'),
         ]);
 	}
@@ -31,10 +31,74 @@ class DashboardController extends Controller
 	*/
 	public function showDashboardAction(Request $request)
 	{
+
+        // Get ID of manager
+		$managerId = $this->getUser()->getId();
+
+		// Get group of manager id
+		$groups = $this->getUser()->getGroups();
+
+		foreach($groups as $group) {
+			$mgGroupId = $group->getId();
+		}
+
+		// Get group object
+		$groupObj = $this->getDoctrine()
+        ->getRepository('AppBundle:Group')
+        ->find($mgGroupId);
+
+		// Get users assign to group
+        $groupUsers = $groupObj->getUsers();
+        $groupUserIds = array();
+
+        foreach($groupUsers as $groupUser) {
+			if( ! in_array("ROLE_MANAGER", $groupUser->getRoles())) {
+				array_push($groupUserIds, $groupUser->getId());
+        	}
+        }
+
+		// Get acitve courses
+		$courses = $this->getDoctrine()
+        ->getRepository('AppBundle:Course')
+        ->findByIsActive(1);
+
+        $activeCourses = array();
+        $baseurl = $request->getScheme() . '://' . $request->getHttpHost() . $request->getBasePath();
+
+        foreach($courses as $course) {
+        	$activeCourses[$course->getId()] = array(
+        		"name" => $course->getName(),
+        		"thumbnail" => $baseurl."/images/thumbnails/".$course->getThumbnail(),
+        		"quizId" => $course->getQuiz()->getId(),
+    		);
+        }
+
+        $i = 0;
+
+        foreach($activeCourses as &$activeCourse) {
+
+        	$usersQuizComplete = $this->getDoctrine()
+	        ->getRepository('AppBundle:UserQuiz')
+	        ->findBy(
+				array(
+					'user' => $groupUserIds,
+					'quiz' => 11,
+					'quizComplete' => 1
+				)
+			);
+
+			foreach( $usersQuizComplete as $userQuizComplete) {
+				$activeCourse["absolvers"] = $i;
+				$i++;
+			}
+
+        }
+
 		// replace this example code with whatever you need
-        return $this->render('user_backend/dashboard.html.twig', [
-            'base_dir' => realpath($this->getParameter('kernel.root_dir').'/..'),
-        ]);
+        return $this->render('user_backend/dashboard.html.twig', array(
+        	"courses" => $activeCourses,
+        	"usersOfGroup" => $groupUserIds,
+    	));
 	}
 
 	/**

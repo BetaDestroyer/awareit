@@ -28,6 +28,11 @@ class UserQuiz
     private $quizComplete;
 
     /**
+     * @ORM\Column(type="integer", nullable = TRUE)
+     */
+    private $points;
+
+    /**
      * @ORM\ManyToOne(targetEntity="user", inversedBy="userQuiz")
      * @ORM\JoinColumn(name="user_id", referencedColumnName="id", nullable=FALSE)
      */
@@ -143,5 +148,29 @@ class UserQuiz
     public function getQuiz()
     {
         return $this->quiz;
+    }
+
+    /**
+     * Set points
+     *
+     * @param integer $points
+     *
+     * @return UserQuiz
+     */
+    public function setPoints($points)
+    {
+        $this->points = $points;
+
+        return $this;
+    }
+
+    /**
+     * Get points
+     *
+     * @return integer
+     */
+    public function getPoints()
+    {
+        return $this->points;
     }
 }

@@ -138,6 +138,51 @@ class QuizController extends Controller
 
 		if(count($questions) == $counter) {
 			$quizOfUser->setQuizComplete(true);
+
+			// If Quiz complete count points and save to db
+
+			// Hole gegebene Antworten
+			$allAnswersOfUser = $user->getAnswers();
+	        $givenAnswerIds = array();
+
+	        foreach($allAnswersOfUser as $answer) {
+	        	array_push($givenAnswerIds, $answer->getId());
+	        }
+
+			// Check ob Antworten richtig sind 
+
+			// Get quzestion Ids of correct answered question
+	        $answers = $this->getDoctrine()
+	        ->getRepository('AppBundle:Answer')
+	        ->findById($givenAnswerIds);
+
+	        $correctAnsweredQuestionIds = array();
+
+	        foreach ($answers as $answer) {
+
+	        	if($answer->getIsCorrect() == true) {
+	        		array_push($correctAnsweredQuestionIds, $answer->getQuestion()->getId());
+	        	}
+
+	        }
+
+	        // Get Points of Questions with correct answers
+
+	        $correctAnsweredQuestions = $this->getDoctrine()
+	        ->getRepository('AppBundle:Question')
+	        ->findById($correctAnsweredQuestionIds);
+
+	        // Zähle Punkte von richtig beantworteten Fragen zusammen
+
+	        $points = 0;
+
+	        foreach ($correctAnsweredQuestions as $correctAnsweredQuestion) {
+	        	$points += $correctAnsweredQuestion->getPoints();
+	        }
+
+			// In DB speichern 
+
+			$quizOfUser->setPoints($points);
 		}
 
 		// Update DB

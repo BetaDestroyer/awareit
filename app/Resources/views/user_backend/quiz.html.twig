@@ -17,12 +17,12 @@
 					</div>
 					{% endfor %}
 				</div>
+				<a href="{{ app.request.headers.get('referer') }}" class="back-link">
+					<div class="btn btn-info back-btn" role="button">Zurück</div>
+				</a>
 				<div class="btn btn-info next-question" role="button">Nächste Frage</div>
 				<a href="{{ path('quiz-results', {'id': quizInfo.id} )  }}" class="show-results-link">
 					<div class="btn btn-info show-results" role="button">Ergebnisse anzeigen</div>
-				</a>
-				<a href="{{ app.request.headers.get('referer') }}" class="back-link">
-					<div class="btn btn-info back-btn" role="button">Zurück</div>
 				</a>
 			</div>
 		{% endfor %}

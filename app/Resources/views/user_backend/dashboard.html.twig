@@ -2,4 +2,50 @@
 
 {% block content %}
 <h2 class="col-xs-12">Dashboard</h2>
+
+<dic class="courses">
+{% for key, course in courses %}
+	<div class="course col-md-4">
+        <h3>{{ course.name }}</h3>
+        <div class="course-img" style = 'background-image: url("{{ course.thumbnail }}")'>
+        	<div id="piechart-{{key}}" style="width: 300px; height: 300px;"></div>
+		</div>
+        <div class="">Kurs wurde absolviert von {{ course.absolvers }} Mitarbeiten von insgesamt {{ usersOfGroup|length }} Mitarbeiten</div>
+
+        <script type="text/javascript">
+			google.charts.setOnLoadCallback(drawChart);
+			function drawChart() {
+
+			var data = google.visualization.arrayToDataTable([
+				['', ''],
+				['Absolventen',     {{ course.absolvers }} ],
+				['Noch nicht abgeschlossen', {{ usersOfGroup|length }} - {{ course.absolvers }}],
+			]);
+
+			var options = {
+				pieHole: 0.95,
+				legend: 'none',
+				chartArea: {left:0,top:0,width:'100%',height:'100%'},
+				pieSliceText: 'none',
+				backgroundColor: 'transparent',
+				pieSliceBorderColor: 'transparent',
+				tooltip: {trigger: 'none'},
+				enableInteractivity: false,
+				slices: {
+					0: { color: 'green' },
+					1: { color: 'red' }
+				}
+		    };
+
+			var chart = new google.visualization.PieChart(document.getElementById('piechart-{{key}}'));
+
+			chart.draw(data, options);
+			}
+		</script>
+    </div>
+{% endfor %}
+</div>
+
+
+
 {% endblock %}
