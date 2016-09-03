@@ -1,33 +1,51 @@
 {% block navigation %}
 	<div class="nav-bg"></div>
 	<div class="navigation">
-		<div class="logo">
-			<a href="{{ path('homepage') }}"><h1>Awareit</h1></a>
+
+		<div class="col-xs-5">
+			<div class="logo">
+				<a href="{{ path('homepage') }}"><h1>Avinga</h1></a>
+			</div>
 		</div>
-		<div class="nav-point">
-			<a href="{{ path('homepage') }}">Home</a>
+
+		<div class="col-xs-7">
+			<div class="social-media">
+				<a href="twitter.com" alt="Folge uns auf Twitter">
+					<i class="fa fa-twitter" aria-hidden="true"></i>
+				</a>
+				<a href="facebook.com" alt="Folge uns auf Facebook">
+					<i class="fa fa-facebook-official" aria-hidden="true"></i>
+				</a>
+			</div>
+			<div class="navigation-items">
+				<div class="nav-point">
+					<a href="{{ path('homepage') }}">Home</a>
+				</div>
+				<div class="nav-point">
+					<a href="{{ path('homepage') }}#service">Service</a>
+				</div>
+				<div class="nav-point">
+					<a href="{{ path('homepage') }}#pricing">Tarife</a>
+				</div>
+				<div class="nav-point">
+					{% if is_granted("IS_AUTHENTICATED_REMEMBERED") %}
+				        <a href="{{ path('user_backend') }}" class="username">{{ app.user.username }}</a>
+				        <span> | </span>
+				        <a href="{{ path('fos_user_security_logout') }}">
+				            {{ 'layout.logout'|trans({}, 'FOSUserBundle') }}
+				        </a>
+				    {% else %} 
+				        <a href="{{ path('fos_user_security_login') }}">{{ 'layout.login'|trans({}, 'FOSUserBundle') }}</a>
+				    {% endif %}
+				</div>
+			</div>
 		</div>
-		<div class="nav-point">
-			<a href="{{ path('homepage') }}#service">Service</a>
-		</div>
-		<div class="nav-point">
-			<a href="{{ path('homepage') }}#pricing">Preise</a>
-		</div>
-		<div class="nav-point">
-			{% if is_granted("IS_AUTHENTICATED_REMEMBERED") %}
-		        <a href="{{ path('user_backend') }}" class="username">{{ app.user.username }}</a>
-		        <span> | </span>
-		        <a href="{{ path('fos_user_security_logout') }}">
-		            {{ 'layout.logout'|trans({}, 'FOSUserBundle') }}
-		        </a>
-		    {% else %} 
-		        <a href="{{ path('fos_user_security_login') }}">{{ 'layout.login'|trans({}, 'FOSUserBundle') }}</a>
-		    {% endif %}
-		</div>
+		
+		
 	</div>
 	<div class="navigation-mobile">
 		<div class="logo">
-			<a href="{{ path('homepage') }}"><h1>Awareit</h1></a>
+			<a href="{{ path('homepage') }}"><h1>Avinga</h1></a>
 		</div>
 		<a class="nav-button" role="button" data-toggle="collapse" href="#collapseNavPoints" aria-expanded="false" aria-controls="collapseNavPoints">
 			<i class="fa fa-bars" aria-hidden="true"></i>
@@ -41,7 +59,7 @@
 				<a href="{{ path('homepage') }}#service">Service</a>
 			</div>
 			<div class="nav-point">
-				<a href="{{ path('homepage') }}#pricing">Preise</a>
+				<a href="{{ path('homepage') }}#pricing">Tarife</a>
 			</div>
 			<div class="nav-point">
 				{% if is_granted("IS_AUTHENTICATED_REMEMBERED") %}

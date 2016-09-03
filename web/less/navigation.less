@@ -2,22 +2,25 @@
 /* NAVIGATION */
 
 .nav-bg { 
-    height: 50px;  
-    background-color: #000;  
-    opacity: 0.41;   
-    margin-top: 10px;   
+    height: 95px;  
+    background-color: #fff;  
     padding-right: 70px; 
     position: absolute; 
     width: 100%; 
     z-index: 99;
     top: 0px; 
+
+    @media(max-width: @tablet-portrait) {
+    	height: 70px; 
+    } 
 }
 
 .navigation {
+	font-family: 'Open Sans', sans-serif;
 	text-align: right;
-    height: 50px;
-    margin-top: 10px;  
-    padding-right: 70px;  
+    height: 95px;
+    padding-right: @sidebar-width; 
+    padding-left: @sidebar-width;  
     position: absolute;
     width: 100%; 
     z-index: 100;   
@@ -25,62 +28,87 @@
 
     @media(max-width: @phone-landscape) {
     	display: none; 
+    }
+
+	@media(min-width: @desktop-large) {
+    	padding-right: @sidebar-width-large; 
+    	padding-left: @sidebar-width-large;  
     } 
 
     .logo {
     	float: left;
-	    line-height: 49px;
 	    text-transform: uppercase;
 	    font-size: 51px;
 	    font-weight: 400;
-	    margin-left: 30px;
 
 	    h1 {
 	    	float: left;
-		    line-height: 49px;
+		    line-height: 95px;
 		    text-transform: uppercase;
-		    font-size: 51px;
-		    font-weight: 400;
+		    font-size: 60px;
+		    font-weight: 300;
 		    margin: 0px;
 	    }
 
 	    a {
 		    text-decoration: none;
-		    color: #eee;
+		    color: #000;
 	    }
     }
 
-    .nav-point {
-		display: inline-block;
-		line-height: 50px;
-		margin-left: 20px;
+    .social-media {
+	    position: relative;    
+	    margin-top: 20px;
 
-		a {
+    	a {
 			text-decoration: none;
-			color: #ccc;
-		    font-size: 16px;
+    		margin-left: 10px;
 
-		    &:hover {
-				color: #eee;  
+    		&:hover {
+				color: #000;  
 			} 
-		}
 
-		.username {
-			@media(max-width: @desktop) {
-		    	display: none; 
-		    } 
-		}
+    		i {
+    			color: @text-color;
+    			font-size: 22px;
+    		}
+    	}
+    }
 
-		span {
-			text-decoration: none;
-			color: #ccc;
-		    font-size: 16px;
+    .navigation-items {
+    	.nav-point {
+			display: inline-block;
+			line-height: 40px;
+			margin-left: 20px;
 
-		    @media(max-width: @desktop) {
-		    	display: none; 
-		    } 
+			a {
+				text-decoration: none;
+				color: @text-color;
+			    font-size: 16px;
+
+			    &:hover {
+					color: #000;  
+				} 
+			}
+
+			.username {
+				@media(max-width: @desktop) {
+			    	display: none; 
+			    } 
+			}
+
+			span {
+				text-decoration: none;
+				color: @text-color;
+			    font-size: 16px;
+
+			    @media(max-width: @desktop) {
+			    	display: none; 
+			    } 
+			}
 		}
-	}
+    }
+
 }  
 
 .navigation-mobile {
@@ -92,6 +120,7 @@
     width: 100%; 
     z-index: 100;
     top: 0px; 
+	font-family: 'Open Sans', sans-serif;
 
 	@media(min-width: @tablet-portrait) {
     	display: none; 
@@ -99,10 +128,10 @@
 
     .logo {
     	float: left;
-	    line-height: 49px;
+	    line-height: 50px;
 	    text-transform: uppercase;
 	    font-size: 51px;
-	    font-weight: 400;
+	    font-weight: 300;
 	    margin-left: 30px;
 
 	    h1 {
@@ -110,13 +139,13 @@
 		    line-height: 49px;
 		    text-transform: uppercase;
 		    font-size: 51px;
-		    font-weight: 400;
+		    font-weight: 300;
 		    margin: 0px;
 	    }
 
 	    a {
 		    text-decoration: none;
-		    color: #eee;
+		    color: @text-color;
 	    }
 
 	    span {
@@ -139,7 +168,7 @@
 
 	    i {
 	    	font-size: 40px;
-		    color: #fff;
+		    color: @text-color;
 		    line-height: 50px;
 	    }
     }
@@ -163,10 +192,10 @@
     	a {
 		    font-size: 16px;
 		    text-decoration: none;
-		    color: #eee;
+		    color: @text-color;
 
 		    &:hover {
-				color: #fff;  
+				color: #ccc;  
 			} 
     	}
     }
@@ -176,8 +205,7 @@
 	    width: 100%;
 	    height: 100%;
 	    position: absolute;
-	    background-color: #000;
-	    opacity: .4;
+	    background-color: #fff;
     }  
 
 }

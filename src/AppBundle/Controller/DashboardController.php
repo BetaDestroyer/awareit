@@ -73,16 +73,18 @@ class DashboardController extends Controller
     		);
         }
 
-        $i = 0;
+        $absolventCounter = 0;
 
         foreach($activeCourses as &$activeCourse) {
+
+        	$activeCourse["absolvers"] = 0;
 
         	$usersQuizComplete = $this->getDoctrine()
 	        ->getRepository('AppBundle:UserQuiz')
 	        ->findBy(
 				array(
 					'user' => $groupUserIds,
-					'quiz' => 11,
+					'quiz' => $activeCourse["quizId"],
 					'quizComplete' => 1
 				)
 			);
@@ -91,9 +93,9 @@ class DashboardController extends Controller
 				$activeCourse["absolvers"] = 0;
 			}
 
-			foreach( $usersQuizComplete as $userQuizComplete) {
-				$activeCourse["absolvers"] = $i;
-				$i++;
+			foreach($usersQuizComplete as $userQuizComplete) {
+				$absolventCounter++;
+				$activeCourse["absolvers"] = $activeCourse["absolvers"] + $absolventCounter;
 			}
 
         }
