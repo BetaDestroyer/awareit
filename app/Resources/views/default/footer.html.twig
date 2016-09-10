@@ -1,7 +1,39 @@
 {% block navigation %}
-<div id="footer" class="col-lg-12">
-	<div class="seperator"></div>
-	<p class="">© AWAREIT UG 2016 - </p>
-	<a href="{{ path('homepage') }}impressum.html" alt="Impressum">Impressum</a>
+<div id="footer" class="col-xs-12">
+	<div class="col-md-3 footer-contact">
+		<div class="footer-contact-headline">Kontakt</div>
+		<div class="footer-contact-item">
+			<i class="fa fa-envelope-o" aria-hidden="true"></i> 
+			<a href="mailto:support@avinga.de">support@avinga.de</a>
+		</div>
+		<div class="footer-contact-item">
+			<i class="fa fa-facebook-official" aria-hidden="true"></i>
+			<a href="" alt="Facbeook Kontakt">bei Facebook</a>
+		</div>
+		<div class="footer-contact-item">
+			<i class="fa fa-twitter" aria-hidden="true"></i>
+			<a href="" alt="Twitter Kontakt">bei Twitter</a>
+		</div>
+	</div>
+	<div class="col-md-3 footer-general">
+		<div class="footer-general-headline">Allgemein</div>
+		<div class="footer-general-item"><a href="" alt="Team Seite">Team</a></div>
+		<div class="footer-general-item"><a href="" alt="Allgemeine geschäftsbedingungen">AGB</a></div>
+		<div class="footer-general-item"><a href="" alt="Impressum">Impressum</a></div>
+	</div>
+	<div class="col-md-6 footer-trust-signals">
+		<div class="footer-trust-signals-item">
+			<a href="{{ path('homepage') }}" class="home-link" alt="Startseite">
+				<img src="{{ asset('images/layout/logo.png') }}" alt="AVINGA Logo" class="footer-logo" />
+				<h3>Avinga</h3>
+			</a>
+		</div>
+		<div class="footer-trust-signals-item">
+			<img src="{{ asset('images/layout/hosted_in_germany.png') }}" alt="Hosted in Germany Logo" class="hosted-in-germany-logo" />
+		</div>
+	</div>
+	<div class="col-xs-12 company-info">
+		<p class="company-info-item">© 2016 Avinga UG (Haftungsbeschränkt)</p>
+	</div>
 </div>
 {% endblock %}
