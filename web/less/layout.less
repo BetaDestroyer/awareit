@@ -57,6 +57,7 @@ body {
             text-align: center;
             margin-top: 60px;
             padding: 0 20px;
+
             @media(max-width: @tablet-landscape) {
                 display: none;
             }
@@ -119,7 +120,7 @@ body {
                 }
 
                 .lg {
-                    font-size: 100px;
+                    font-size: 60px;
                     margin: 0px;
                     padding: 0px;
                     line-height: 100px;
@@ -244,6 +245,7 @@ body {
             line-height: 50px;
             border: 1px solid #fff;
             margin: 0 auto 30px;
+            cursor: pointer;
 
             .text-item {
                 text-decoration: none;
@@ -470,10 +472,24 @@ body {
 
             .input {
                 width: 300px;
+
+                @media(max-width: 991px) {
+                    width: 100%;
+                }
             }
 
             .button {
                 width: 150px;
+
+
+                @media(max-width: 991px) {
+                    width: 100%;
+                    margin-top: 20px;
+                }
+
+                .btn {
+                    width: 100%;
+                }
             }
         }
     }
@@ -719,11 +735,24 @@ body {
 
                 .form-group {
 
-                    .form-control {
+                    input {
                         width: 100%;
                         border-radius: 0px;
+                        padding: 5px 10px;
+                        border: 1px solid #fff;
                         background-color: transparent;
                         font-family: 'Open Sans', sans-serif;
+                        color: #fff;
+                    }
+
+                    textarea {
+                        width: 100%;
+                        border-radius: 0px;
+                        padding: 5px 10px;
+                        border: 1px solid #fff;
+                        background-color: transparent;
+                        font-family: 'Open Sans', sans-serif;
+                        color: #fff;
                     }
 
                     .contact-submit {

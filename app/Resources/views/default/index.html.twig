@@ -168,34 +168,16 @@
 						<a href="" class="media-icon gplus-icon"><i class="fa fa-google-plus" aria-hidden="true"></i></a>
 					</div>
         		</div>
-        		<div class="contact-form-container col-md-6 col-xs-12">
-    				<div class="contact-form col-xs-6">
-						<form>
-						<div class="form-group">
-							<input type="email" class="form-control" id="contactName" placeholder="Name">
-						</div>
-						<div class="form-group">
-							<input type="email" class="form-control" id="contactCompany" placeholder="Unternehmen">
-						</div>
-						<div class="form-group">
-							<input type="email" class="form-control" id="contactEmail" placeholder="E-Mail">
-						</div>
-						<div class="form-group">
-							<textarea class="form-control" rows="7" placeholder="Nachricht"></textarea>
-						</div>
-						<div class="form-group">
-							<button type="submit" class="btn btn-default contact-submit">Jetzt Absenden</button>
-						</div>
-						</form>
-    				</div>
-        		</div>
+                <div class="contact-form-container col-md-6 col-xs-12">
+                    <div class="contact-form col-xs-6">
+                        {% include 'forms/contact.html.twig' %}
+                    </div>
+                </div>
         	</div>
 
         </div>
     </div>
 
-
-
-<script>
-</script>
+<script src="{{ asset('js/jquery.animateNumber.min.js') }}"></script>
+<script src="{{ asset('js/animations.js') }}"></script>
 {% endblock %}
