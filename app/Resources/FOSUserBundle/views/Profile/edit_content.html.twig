@@ -1,0 +1,79 @@
+{% trans_default_domain 'FOSUserBundle' %}
+{{ form_start(form, { 'action': path('fos_user_profile_edit'), 'attr': { 'class': 'fos_user_profile_edit' } }) }}
+
+<div class="profile-edit-wrapper col-lg-12">
+	<h2>Profil bearbeiten</h2>
+	<div class="row">
+		<div class="form-group col-md-6">
+	        {{ form_row(form.firstName) }}
+	        {{ form_errors(form.firstName) }}
+	    </div>
+
+	    <div class="form-group col-md-6">
+	        {{ form_row(form.lastName) }}
+	        {{ form_errors(form.lastName) }}
+	    </div>
+	</div>
+	
+	<div class="row">
+	    <div class="form-group col-md-6">
+	        {{ form_row(form.companyName) }}
+	        {{ form_errors(form.companyName) }}
+	    </div>
+
+	    <div class="form-group col-md-6">
+	        {{ form_row(form.ustId) }}
+	        {{ form_errors(form.ustId) }}
+	    </div>
+    </div>
+
+	<div class="row">
+	    <div class="form-group col-md-6">
+	        {{ form_row(form.street) }}
+	        {{ form_errors(form.street) }}
+	    </div>
+
+	    <div class="form-group col-md-6">
+	        {{ form_row(form.postcode) }}
+	        {{ form_errors(form.postcode) }}
+	    </div>
+	</div>
+
+	<div class="row">
+		<div class="form-group col-md-6">
+	        {{ form_row(form.city) }}
+	        {{ form_errors(form.city) }}
+	    </div>
+
+	    <div class="form-group col-md-6">
+	        {{ form_row(form.country) }}
+	        {{ form_errors(form.country) }}
+	    </div>
+    </div>
+
+	<div class="row">
+	    <div class="form-group col-md-6">
+	        {{ form_row(form.gender) }}
+	        {{ form_errors(form.gender) }}
+	    </div>
+
+	    <div class="form-group col-md-6 bday-wrapper">
+	    	{{ form_label(form.birthdate) }}
+	    	{{ form_widget(form.birthdate.day,{'attr':{'class':'form-control bday day'}}) }}
+			{{ form_widget(form.birthdate.month,{'attr':{'class':'form-control bday month'}}) }}
+			{{ form_widget(form.birthdate.year,{'attr':{'class':'form-control bday year'}}) }}
+	        {{ form_errors(form.birthdate) }}
+	    </div>
+    </div>
+
+	<div class="row">
+	    <div class="form-group col-md-6 current-pw">
+	    	{{ form_row(form.current_password) }}
+	    </div>
+
+	    <div class="form-group col-md-6 submit">
+    		<input type="submit" class="btn btn-primary" value="{{ 'profile.edit.submit'|trans }}" />
+	    </div>
+	</div>
+</div>
+{{ form_end(form) }}

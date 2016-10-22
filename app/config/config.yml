@@ -85,6 +85,9 @@ fos_user:
             from_email:
                 address:        "%sender_adress%"
                 sender_name:    "%sender_name%"
+    profile:
+        form:
+            type: AppBundle\Form\ProfileFormType
 
 sonata_block:
     default_contexts: [cms]

@@ -7,7 +7,7 @@ security:
     role_hierarchy:
         ROLE_ADMIN:       ROLE_USER
         ROLE_MANAGER:     [ROLE_MANAGER, ROLE_USER]
-        ROLE_SUPER_ADMIN: [ROLE_ADMIN, ROLE_MANAGER]
+        ROLE_SUPER_ADMIN: [ROLE_ADMIN, ROLE_MANAGER, ROLE_SONATA_ADMIN]
 
     # http://symfony.com/doc/current/book/security.html#where-do-users-come-from-user-providers
     providers:
@@ -52,3 +52,4 @@ security:
         - { path: ^/group/list, role: ROLE_ADMIN }
         - { path: ^/group/.+/delete, role: ROLE_ADMIN }
         - { path: ^/backend, role: ROLE_USER }
+        - { path: ^/profile, role: ROLE_USER }
