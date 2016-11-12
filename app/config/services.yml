@@ -19,6 +19,11 @@ services:
         tags:
             - { name: form.type, alias: app_user_registration }
 
+    app.form.change_password:
+        class: AppBundle\Form\ChangePasswordFormType
+        tags:
+            - { name: form.type, alias: app_user_change_password }
+
     app.form.profile:
         class: AppBundle\Form\ProfileFormType
         tags:

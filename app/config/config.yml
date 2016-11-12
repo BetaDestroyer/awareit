@@ -88,6 +88,9 @@ fos_user:
     profile:
         form:
             type: AppBundle\Form\ProfileFormType
+    change_password:
+        form:
+            type: AppBundle\Form\ChangePasswordFormType
 
 sonata_block:
     default_contexts: [cms]
