@@ -1,7 +1,7 @@
 {% trans_default_domain 'FOSUserBundle' %}
 {{ form_start(form, { 'action': path('fos_user_profile_edit'), 'attr': { 'class': 'fos_user_profile_edit' } }) }}
 
-{% if is_granted('ROLE_USER') %}
+{% if is_granted('ROLE_USER') and is_granted('ROLE_MANAGER') == false %}
 	<!-- Dont render user-form for user -->
     {% do form.firstName.setRendered %}
     {% do form.lastName.setRendered %}
