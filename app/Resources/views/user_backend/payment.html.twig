@@ -1,0 +1,44 @@
+{% extends 'user_backend/index.html.twig' %}
+
+{% block content %}
+<div class="payment-wrapper col-lg-12">
+	<div class="payment-info col-lg-6">
+		<div class="payment-title">
+			<h1>Einstellungen</h1>
+		</div>
+		{{ form_start(formEdit) }}
+
+		<div class="row">
+		{{ form_row(formEdit.package, { 'attr': { 'class': 'form-control' } } ) }}
+    	{{ form_errors(formEdit.package, { 'attr': { 'class': 'form-control' } } ) }}
+    	</div>
+
+		<div class="row">
+    	{{ form_row(formEdit.paymentType, { 'attr': { 'class': 'form-control' } } ) }}
+    	{{ form_errors(formEdit.paymentType, { 'attr': { 'class': 'form-control' } } ) }}
+    	</div>
+
+    	<div class="row">
+    	{{ form_row(formEdit.xterms, { 'attr': { 'class': 'standard-checkbox' } } ) }}
+    	{{ form_errors(formEdit.xterms, { 'attr': { 'class': 'form-control' } } ) }}
+    	</div>
+
+    	<div class="row">
+    		<input type="submit" class="btn btn-primary" value="Jetzt bestellen" />
+    	</div>
+
+		{{ form_widget(formEdit) }}
+		{{ form_end(formEdit) }}
+
+		{% if formDelete != false %}
+	    	{{ form_start(formDelete) }}
+	    	<div class="row">
+    			<input type="submit" class="btn btn-warning" value="Jetzt abbestellen" />
+    		</div>
+			{{ form_widget(formDelete) }}
+			{{ form_end(formDelete) }}
+    	{% endif %}
+	</div>
+</div>
+
+{% endblock %}

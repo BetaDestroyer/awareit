@@ -1,8 +1,23 @@
 {% trans_default_domain 'FOSUserBundle' %}
 {{ form_start(form, { 'action': path('fos_user_profile_edit'), 'attr': { 'class': 'fos_user_profile_edit' } }) }}
 
+{% if is_granted('ROLE_USER') %}
+	<!-- Dont render user-form for user -->
+    {% do form.firstName.setRendered %}
+    {% do form.lastName.setRendered %}
+    {% do form.companyName.setRendered %}
+    {% do form.ustId.setRendered %}
+    {% do form.street.setRendered %}
+    {% do form.postcode.setRendered %}
+    {% do form.city.setRendered %}
+    {% do form.country.setRendered %}
+    {% do form.gender.setRendered %}
+    {% do form.birthdate.setRendered %}
+{% endif %}
+
 <div class="profile-edit-wrapper col-lg-12">
 	<h2>Profil bearbeiten</h2>
+	{% if is_granted('ROLE_MANAGER') %}
 	<div class="row">
 		<div class="form-group col-md-6">
 	        {{ form_row(form.firstName) }}
@@ -65,6 +80,7 @@
 	        {{ form_errors(form.birthdate) }}
 	    </div>
     </div>
+    {% endif %}
 
 	<div class="row">
 	    <div class="form-group col-md-6 current-pw">
@@ -78,10 +94,12 @@
 	    </div>
 	</div>
 
+	{% if is_granted('ROLE_MANAGER') %}
 	<div class="row">
 	    <div class="form-group col-md-12 submit">
     		<input type="submit" class="btn btn-primary" value="{{ 'profile.edit.submit'|trans }}" />
 	    </div>
 	</div>
+	{% endif %}
 </div>
 {{ form_end(form) }}

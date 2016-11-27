@@ -97,19 +97,21 @@
     .back-link {
     	float: left;
     }
+
+    /* remove standard-styles */
+	input {
+		-webkit-appearance: none;
+		-moz-appearance: none;
+		appearance: none;
+		border: none;
+		border-radius: 0;
+		font-size: 1em;
+		width: 100%;
+		font-family: FontAwesome;
+	} 
+
 }
 
-/* remove standard-styles */
-input {
-	-webkit-appearance: none;
-	-moz-appearance: none;
-	appearance: none;
-	border: none;
-	border-radius: 0;
-	font-size: 1em;
-	width: 100%;
-	font-family: FontAwesome;
-} 
 
 /* graceful degradation for ie8 */
 input[type='radio'] {

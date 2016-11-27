@@ -47,6 +47,7 @@ security:
         - { path: ^/register, role: IS_AUTHENTICATED_ANONYMOUSLY }
         - { path: ^/resetting, role: IS_AUTHENTICATED_ANONYMOUSLY }
         - { path: ^/group/.+/edit, role: ROLE_MANAGER }
+        - { path: ^/backend/payment, role: ROLE_MANAGER }
         - { path: ^/admin/, role: ROLE_SUPER_ADMIN }
         - { path: ^/group/new, role: ROLE_ADMIN }
         - { path: ^/group/list, role: ROLE_ADMIN }
