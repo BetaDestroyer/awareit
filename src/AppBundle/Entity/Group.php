@@ -27,7 +27,7 @@ class Group extends BaseGroup
     * @ORM\Column(type="boolean")
     * @ORM\GeneratedValue(strategy="AUTO")
     */
-    protected $isPayed;
+    protected $isPayed = 0;
 
     /**
     * @ORM\Column(type="string", length=100, nullable=true)
