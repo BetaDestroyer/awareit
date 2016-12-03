@@ -1,0 +1,97 @@
+.payment-wrapper {
+	.pricing-table-container {
+        margin: 30px 0px 30px 0px; 
+
+        @media(max-width: 991px) {
+            padding: 0px;
+        }
+
+        .pricing-table {
+
+            .price {
+                background-color: #2ee29b;
+                text-align: center; 
+                height: 110px;
+                font-size: 50px;
+                font-weight: 300;
+                color: #000;
+                padding-top: 13px;
+
+                p {
+                    font-size: 14px;
+                    margin-top: -10px;
+                }
+            }
+
+            .arrow-down {
+                width: 0;
+                height: 0;
+                border-left: 10px solid transparent;
+                border-right: 10px solid transparent;
+                border-top: 10px solid #2ee29b;
+                margin: 0px auto;
+                z-index: 10;
+                position: relative;
+            }
+
+            .package-name {
+                background-color: #fafafa;
+                text-align: center;
+                height: 110px;
+                font-size: 34px;
+                font-weight: 300;
+                color: #000;
+                padding-top: 25px;
+                margin-top: -10px;
+            }
+
+            .advantages {
+                background-color: #d1d1d1;
+                text-align: center;
+                color: #000;
+                padding: 10px 0px;
+                margin-top: -10px;
+
+                p {
+                    margin: 15px 0px;
+                }
+            }
+
+            .call-to-action {
+                background-color: #34495e;
+                text-align: center;
+                color: #fff;
+                padding: 5px 0px;
+
+                a {
+                    color: #fff;
+                    text-decoration: none;
+                }
+            }
+
+        }
+        
+    }
+
+    .artificial-checkbox {
+    	content:' ';
+	    display: inline-block;
+	    width: 17px;
+	    height: 17px;
+	    position: relative;
+	    top: 4px;
+	    border: 1px solid #bbb;
+	    background: white;
+	    margin-right: 3em;
+	    box-shadow: inset 0 1px 1px 0 rgba(0,0,0,.1);
+    }
+
+    .artificial-checkbox.selected {
+    	background: #ccc;
+		box-shadow: inset 0 0 0 2px white;
+    }
+
+    .hidden-form {
+    	display: none;
+    }
+}

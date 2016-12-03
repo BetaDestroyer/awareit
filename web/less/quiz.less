@@ -110,63 +110,63 @@
 		font-family: FontAwesome;
 	} 
 
+	/* graceful degradation for ie8 */
+	input[type='radio'] {
+		width: auto;
+		float: left;
+		margin-right: .75em;
+		background: transparent;
+		border: none;
+		font-family: FontAwesome;
+	}
+
+	input[type='radio']:checked,
+	input[type='radio']:not(:checked) {
+		background: transparent;
+		position: relative;
+		visibility: hidden;
+		margin: 0;
+		padding: 0;
+	}
+
+	input[type='radio'] + label {
+		cursor: pointer;
+	}
+
+	/* Custom Radio Button */
+	input[type='radio']:checked + label::before,
+	input[type='radio']:not(:checked) + label::before {
+	    content:' ';
+	    display: inline-block;
+	    width: 17px;
+	    height: 17px;
+	    position: relative;
+	    top: 4px;
+	    border: 1px solid #bbb;
+	    background: white;
+	    margin-right: 3em;
+	    box-shadow: inset 0 1px 1px 0 rgba(0,0,0,.1);
+
+	    @media(max-width: @phone-landscape) { 
+	        margin-right: 20px;
+	    }
+
+	}
+
+	input[type=radio]:checked + label::before,
+	input[type=radio]:not(:checked) + label::before {
+		border-radius: 30px;
+	}
+
+	input[type='radio']:hover  + label::before {
+		background: #ddd;
+		box-shadow: inset 0 0 0 2px white;
+	}
+
+	input[type='radio']:checked  + label::before {
+		background: #ccc;
+		box-shadow: inset 0 0 0 2px white;
+	}
+
 }
 
-
-/* graceful degradation for ie8 */
-input[type='radio'] {
-	width: auto;
-	float: left;
-	margin-right: .75em;
-	background: transparent;
-	border: none;
-	font-family: FontAwesome;
-}
-
-input[type='radio']:checked,
-input[type='radio']:not(:checked) {
-	background: transparent;
-	position: relative;
-	visibility: hidden;
-	margin: 0;
-	padding: 0;
-}
-
-input[type='radio'] + label {
-	cursor: pointer;
-}
-
-/* Custom Radio Button */
-input[type='radio']:checked + label::before,
-input[type='radio']:not(:checked) + label::before {
-    content:' ';
-    display: inline-block;
-    width: 17px;
-    height: 17px;
-    position: relative;
-    top: 4px;
-    border: 1px solid #bbb;
-    background: white;
-    margin-right: 3em;
-    box-shadow: inset 0 1px 1px 0 rgba(0,0,0,.1);
-
-    @media(max-width: @phone-landscape) { 
-        margin-right: 20px;
-    }
-
-}
-
-input[type=radio]:checked + label::before,
-input[type=radio]:not(:checked) + label::before {
-	border-radius: 30px;
-}
-
-input[type='radio']:hover  + label::before {
-	background: #ddd;
-	box-shadow: inset 0 0 0 2px white;
-}
-
-input[type='radio']:checked  + label::before {
-	background: #ccc;
-	box-shadow: inset 0 0 0 2px white;
-}

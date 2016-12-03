@@ -2,43 +2,114 @@
 
 {% block content %}
 <div class="payment-wrapper col-lg-12">
-	<div class="payment-info col-lg-6">
+	<div class="payment-info col-lg-12">
 		<div class="payment-title">
 			<h1>Einstellungen</h1>
 		</div>
+
 		{{ form_start(formEdit) }}
 
-		<div class="row">
-		{{ form_row(formEdit.package, { 'attr': { 'class': 'form-control' } } ) }}
-    	{{ form_errors(formEdit.package, { 'attr': { 'class': 'form-control' } } ) }}
-    	</div>
+			<div class="pricing-table-container col-md-12 col-xs-12">
 
-		<div class="row">
-    	{{ form_row(formEdit.paymentType, { 'attr': { 'class': 'form-control' } } ) }}
-    	{{ form_errors(formEdit.paymentType, { 'attr': { 'class': 'form-control' } } ) }}
-    	</div>
+				{% for key,val in formEdit.package.vars.choices %}
 
-    	<div class="row">
-    	{{ form_row(formEdit.xterms, { 'attr': { 'class': 'standard-checkbox' } } ) }}
-    	{{ form_errors(formEdit.xterms, { 'attr': { 'class': 'form-control' } } ) }}
-    	</div>
+					<div class="pricing-table col-md-6 col-xs-12">
+						<div class="price">
+							{% if val.value == "base" %} 
+								99€ 
+							{% endif %}
+							{% if val.value == "premium" %} 
+								199€ 
+							{% endif %}
+							<p>monatlich inkl. Mwst.</p>
+						</div>
+						<div class="arrow-down"></div>
+						<div class="package-name">{{ val.label }}</div>
+						<div class="advantages">
+							<p>
+								{% if val.value == "base" %} 
+								<strong>inkl. 5 Mitarbeiter</strong>
+								{% endif %}
+								{% if val.value == "premium" %} 
+								<strong>inkl. 20 Mitarbeiter</strong>
+								{% endif %}
+							</p>
+							<p>Lehrvideos und Quiz</p>
+							<p>Anonymisierte Quizergebnisse</p>
+							<p>Zugänge managen</p>
+						</div>
+						<div class="call-to-action">
+							<div id="form_package">
+								<label for="form_package_{{ key }}" class="required">
+									<div class="artificial-checkbox {% if val.value == formEdit.package.vars.value %}selected{% endif %}"></div>
+									{{ val.label }} Paket auswählen
+								</label>
+							</div>
+						</div>
+					</div>
+				{% endfor %}
 
-    	<div class="row">
-    		<input type="submit" class="btn btn-primary" value="Jetzt bestellen" />
-    	</div>
+			</div>
 
-		{{ form_widget(formEdit) }}
+			<div class="pricing-table-container col-md-12 col-xs-12">
+				{% for key,val in formEdit.paymentType.vars.choices %}
+					<div class="payment-type-table col-md-6 col-xs-12">
+						<div class="call-to-action">
+							<div id="form_paymentType">
+								<label for="form_paymentType_{{ key }}" class="required">
+									<div class="artificial-checkbox {% if val.value == formEdit.paymentType.vars.value %}selected{% endif %}"></div>
+									{{ val.label }}
+								</label>
+							</div>
+						</div>
+					</div>
+				{% endfor %}
+			</div>
+
+			<div class="row">
+			{{ form_row(formEdit.xterms, { 'attr': { 'class': 'standard-checkbox' } } ) }}
+			{{ form_errors(formEdit.xterms, { 'attr': { 'class': 'form-control' } } ) }}
+			</div>
+
+			<div class="hidden-form">
+				{{ form_widget(formEdit) }}
+
+				{{ form_row(formEdit.package) }}
+				{{ form_errors(formEdit.package) }}
+
+				{{ form_row(formEdit.paymentType, { 'attr': { 'class': 'form-control' } } ) }}
+				{{ form_errors(formEdit.paymentType, { 'attr': { 'class': 'form-control' } } ) }}
+			</div>
+
+			<div class="row">
+				<input type="submit" class="btn btn-primary" value="Jetzt bestellen" />
+			</div>
+
 		{{ form_end(formEdit) }}
 
 		{% if formDelete != false %}
 	    	{{ form_start(formDelete) }}
 	    	<div class="row">
-    			<input type="submit" class="btn btn-warning" value="Jetzt abbestellen" />
-    		</div>
+				<input type="submit" class="btn btn-warning" value="Jetzt abbestellen" />
+			</div>
 			{{ form_widget(formDelete) }}
-			{{ form_end(formDelete) }}
-    	{% endif %}
+		{% endif %}
+
 	</div>
 </div>
+
+<script type="text/javascript">
+jQuery.noConflict();
+(function( $ ) {
+	$("#form_package input").change(function() {
+		$("#form_package label .artificial-checkbox").removeClass("selected");
+		$("#form_package label[for='"+$(this).attr("id")+"'] .artificial-checkbox").addClass("selected");
+	});
+	$("#form_paymentType input").change(function() {
+		$("#form_paymentType label .artificial-checkbox").removeClass("selected");
+		$("#form_paymentType label[for='"+$(this).attr("id")+"'] .artificial-checkbox").addClass("selected");
+	});
+})(jQuery);
+</script>
 
 {% endblock %}
