@@ -1,15 +1,24 @@
 {% extends 'user_backend/index.html.twig' %}
 
 {% block content %}
-<div class="payment-wrapper col-lg-12">
-	<div class="payment-info col-lg-12">
-		<div class="payment-title">
-			<h1>Einstellungen</h1>
+<div class="payment-wrapper">
+	<div class="payment-info container-fluid">
+		<div class="payment-title col-xs-12">
+			<h2>Einstellungen</h2>
 		</div>
 
 		{{ form_start(formEdit) }}
 
-			<div class="pricing-table-container col-md-12 col-xs-12">
+			<div class="pricing-table-container row">
+				<div class="col-xs-12">
+					<h3>1. Wählen Sie Ihr Paket</h3>
+					<p>
+						Wählen Sie bitte zunächst das Paket aus, dass am Besten zu Ihnen und Ihr Unternehmen passt. 
+						Sollte Ihnen kein Paket zusagen, kontakten Sie uns gerne per E-Mail und wir erarbeiten gemeinsam 
+						mit Ihnen ein individuelles Angebot. Natürlich können Sie im nachhinein Ihr Paket wechseln.
+						Bitte beachten Sie dabei, dass das Wechseln des Paketes nur einmal im Monat möglich ist. 
+					</p>
+				</div>
 
 				{% for key,val in formEdit.package.vars.choices %}
 
@@ -49,9 +58,19 @@
 					</div>
 				{% endfor %}
 
+				<div class="form-error">
+					{{ form_errors(formEdit.package) }}
+				</div>
+
 			</div>
 
-			<div class="pricing-table-container col-md-12 col-xs-12">
+			<div class="pricing-table-container row">
+				<div class="col-xs-12">
+					<h3>2. Wählen Sie eine Bezahlmethode</h3>
+					<p>
+						Sie haben die Möglichkeit Ihr Paket bequem per Rechnung oder PayPal zu bezahlen.
+					</p>
+				</div>
 				{% for key,val in formEdit.paymentType.vars.choices %}
 					<div class="payment-type-table col-md-6 col-xs-12">
 						<div class="call-to-action">
@@ -64,25 +83,30 @@
 						</div>
 					</div>
 				{% endfor %}
-			</div>
 
-			<div class="row">
-			{{ form_row(formEdit.xterms, { 'attr': { 'class': 'standard-checkbox' } } ) }}
-			{{ form_errors(formEdit.xterms, { 'attr': { 'class': 'form-control' } } ) }}
+				<div class="form-error">
+					{{ form_errors(formEdit.paymentType) }}
+				</div>
 			</div>
 
 			<div class="hidden-form">
-				{{ form_widget(formEdit) }}
-
 				{{ form_row(formEdit.package) }}
-				{{ form_errors(formEdit.package) }}
-
-				{{ form_row(formEdit.paymentType, { 'attr': { 'class': 'form-control' } } ) }}
-				{{ form_errors(formEdit.paymentType, { 'attr': { 'class': 'form-control' } } ) }}
+				{{ form_row(formEdit.paymentType) }}
 			</div>
 
-			<div class="row">
-				<input type="submit" class="btn btn-primary" value="Jetzt bestellen" />
+			<div class="pricing-table-container row">
+				<div class="terms col-sm-6 col-xs-12">
+					<p>
+						Bitte beachten Sie unsere <a href="{{ path('agb') }}">AGB</a> sowie unsere <a href="{{ path('right-of-return') }}">Widerrufsbelehrung</a>. <br>
+						Ich erkläre mich mit den AGB von Avinga UG einverstanden.
+					</p>
+					{{ form_row(formEdit.xterms, { 'attr': { 'class': 'terms-field' } } ) }}
+				</div>
+				<div class="col-sm-6 col-xs-12">
+					<input type="submit" class="btn btn-primary col-xs-12" value="Jetzt bestellen" />
+				</div>
+
+				{{ form_widget(formEdit) }}
 			</div>
 
 		{{ form_end(formEdit) }}
@@ -90,7 +114,11 @@
 		{% if formDelete != false %}
 	    	{{ form_start(formDelete) }}
 	    	<div class="row">
-				<input type="submit" class="btn btn-warning" value="Jetzt abbestellen" />
+	    		<div class="pricing-table-container col-xs-12">
+	    			<div class="col-xs-12">
+						<input type="submit" class="btn btn-warning col-xs-12" value="Jetzt abbestellen" />
+					</div>
+				</div>
 			</div>
 			{{ form_widget(formDelete) }}
 		{% endif %}
@@ -109,6 +137,11 @@ jQuery.noConflict();
 		$("#form_paymentType label .artificial-checkbox").removeClass("selected");
 		$("#form_paymentType label[for='"+$(this).attr("id")+"'] .artificial-checkbox").addClass("selected");
 	});
+
+	var checkbox = $(".terms-field");
+	$(".terms div").prepend(checkbox);
+
+	$(".payment-wrapper form").attr("novalidate", "novalidate");
 })(jQuery);
 </script>
 

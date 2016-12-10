@@ -11,6 +11,7 @@ use Symfony\Component\Form\Extension\Core\Type\TextType;
 use Symfony\Component\Form\Extension\Core\Type\SubmitType;
 use Symfony\Component\Form\Extension\Core\Type\ChoiceType;
 use Symfony\Component\Form\Extension\Core\Type\CheckboxType;
+use Symfony\Component\Validator\Constraints\IsTrue;
 
 class PaymentController extends Controller
 {
@@ -41,25 +42,28 @@ class PaymentController extends Controller
 
         $form = $this->createFormBuilder($groupObj)
 			->add('package', ChoiceType::class, [
-			    'choices' => array(
-			    	'Basis' => 'base', 
-			    	'Premium' => 'premium'
+			    'choices' 	=> array(
+			    	'Basis' 	=> 'base', 
+			    	'Premium' 	=> 'premium'
 		    	),
-			    'multiple' => false,
-			    'expanded' => true,
+			    'multiple' 	=> false,
+			    'expanded' 	=> true,
+		        'required' 	=> 'required',
 		    ])
 		    ->add('paymentType', ChoiceType::class, [
-			    'choices' => array(
-			    	'Rechnung' => 'invoice', 
-			    	'Paypal' => 'paypal'
+			    'choices' 	=> array(
+			    	'Rechnung' 	=> 'invoice', 
+			    	'Paypal' 	=> 'paypal'
 		    	),
-			    'multiple' => false,
-			    'expanded' => true,
+			    'multiple' 	=> false,
+			    'expanded' 	=> true,
+		        'required' 	=> 'required',
 		    ])
 		    ->add('xterms', CheckboxType::class, array(
-			    'label'    => 'AGB',
-			    'mapped' => false,
-		        'required' => 'required',
+			    'label'    		=> 'AGB',
+			    'constraints'	=> new IsTrue(array('message'=>'Needs to be clicked')),
+			    'mapped' 		=> false,
+		        'required' 		=> 'required',
 			))
             ->getForm();
 

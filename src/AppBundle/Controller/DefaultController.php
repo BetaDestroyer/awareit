@@ -72,4 +72,24 @@ class DefaultController extends Controller
         
     }
 
+    /**
+     * @Route("/agb", name="agb")
+     */
+    public function agbAction(Request $request)
+    {
+        return $this->render('default/agb.html.twig', [
+            'base_dir' => realpath($this->getParameter('kernel.root_dir').'/..')
+        ]);
+    }
+
+    /**
+     * @Route("/right-of-return", name="right-of-return")
+     */
+    public function rorAction(Request $request)
+    {
+        return $this->render('default/agb.html.twig', [
+            'base_dir' => realpath($this->getParameter('kernel.root_dir').'/..')
+        ]);
+    }
+
 }

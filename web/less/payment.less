@@ -1,4 +1,10 @@
+@import url("variables.less");
 .payment-wrapper {
+
+    .payment-info {
+    	padding: 0px;
+    }
+
 	.pricing-table-container {
         margin: 30px 0px 30px 0px; 
 
@@ -7,6 +13,10 @@
         }
 
         .pricing-table {
+
+        	@media(max-width: @tablet-landscape) {
+        		margin-bottom: 30px;
+        	}
 
             .price {
                 background-color: #2ee29b;
@@ -30,7 +40,7 @@
                 border-right: 10px solid transparent;
                 border-top: 10px solid #2ee29b;
                 margin: 0px auto;
-                z-index: 10;
+                z-index: 10; 
                 position: relative;
             }
 
@@ -82,7 +92,7 @@
 	    top: 4px;
 	    border: 1px solid #bbb;
 	    background: white;
-	    margin-right: 3em;
+	    margin-right: 1em;
 	    box-shadow: inset 0 1px 1px 0 rgba(0,0,0,.1);
     }
 
@@ -94,4 +104,104 @@
     .hidden-form {
     	display: none;
     }
+
+	.terms {
+
+		ul {
+	        list-style: none;
+		    display: block;
+		    position: relative;
+		    padding: 15px 0;
+	        margin: 15px 0px;
+		    color: #a94442;
+		    border-color: #ebccd1;
+		    background-color: #f2dede;
+
+	    	li {
+	    		text-align: center;
+	    	}
+	    }
+
+		/* remove standard-styles */
+		input {
+			-webkit-appearance: none;
+			-moz-appearance: none;
+			appearance: none;
+			border: none;
+			border-radius: 0;
+			font-size: 1em;
+			width: 100%;
+			font-family: FontAwesome;
+		} 
+
+		/* graceful degradation for ie8 */
+		input[type='checkbox'] {
+			width: auto;
+			float: left;
+			margin-right: .75em;
+			background: transparent;
+			border: none;
+			font-family: FontAwesome;
+		}
+
+		input[type='checkbox']:checked,
+		input[type='checkbox']:not(:checked) {
+			background: transparent;
+			position: relative;
+			visibility: hidden;
+			margin: 0;
+			padding: 0;
+		}
+
+		input[type='checkbox'] + label {
+			cursor: pointer;
+		}
+
+		/* Custom Radio Button */
+		input[type='checkbox']:checked + label::before,
+		input[type='checkbox']:not(:checked) + label::before {
+		    content:' ';
+		    display: inline-block;
+		    width: 17px;
+		    height: 17px;
+		    position: relative;
+		    top: 4px;
+		    border: 1px solid #bbb;
+		    background: white;
+		    margin-right: 1em;
+		    box-shadow: inset 0 1px 1px 0 rgba(0,0,0,.1);
+
+		    @media(max-width: @phone-landscape) { 
+		        margin-right: 20px;
+		    }
+
+		}
+
+		input[type='checkbox']:checked  + label::before {
+			background: #ccc;
+			box-shadow: inset 0 0 0 2px white;
+		}
+
+	}
+
+	.form-error {
+		display: inline-block;
+	    position: relative;
+	    width: 100%;
+
+	    ul {
+	        list-style: none;
+		    display: block;
+		    position: relative;
+		    padding: 15px 0;
+		    margin: 15px;
+		    color: #a94442;
+		    border-color: #ebccd1;
+		    background-color: #f2dede;
+
+	    	li {
+	    		text-align: center;
+	    	}
+	    }
+	}
 }
