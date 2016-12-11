@@ -87,7 +87,7 @@ class DefaultController extends Controller
      */
     public function rorAction(Request $request)
     {
-        return $this->render('default/agb.html.twig', [
+        return $this->render('default/', [
             'base_dir' => realpath($this->getParameter('kernel.root_dir').'/..')
         ]);
     }

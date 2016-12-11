@@ -26,6 +26,7 @@ class CourseController extends Controller
         	$coursePreviews[$key]["id"] = $course->getId();
         	$coursePreviews[$key]["name"] = $course->getName();
         	$coursePreviews[$key]["description"] = $course->getDescription();
+            $coursePreviews[$key]["test"] = $course->getIsTest();
         	$coursePreviews[$key]["thumbnail"] = $baseurl."/images/thumbnails/".$course->getThumbnail();
         }
 
@@ -40,19 +41,50 @@ class CourseController extends Controller
     public function showCourseAction(Request $request, $id)
     {
         // Get course by id
-    	$courses = $this->getDoctrine()
+    	$course = $this->getDoctrine()
         ->getRepository('AppBundle:Course')
-        ->findById($id);
+        ->findOneById($id);
+
+        // Check if current course is testcourse or premium course
+        if($course->getIsTest() == 0) {
+            $userInfo = $this->get('app.userinfo');
+            $hasPayed = $userInfo->hasPayed();
+
+            // If premium course check if group has payed
+            if(!$hasPayed) {
+
+                // If group hasnt payed check if its user or manager and redirect with matching message
+                $roles = $this->getUser()->getRoles();
+                switch ($roles) {
+                    case in_array("ROLE_MANAGER", $this->getUser()->getRoles()):
+                        $this->addFlash(
+                            'info',
+                            'Bevor Sie und Ihre Mitarbeiter diesen Kurs absolvieren können, müssen sie ein Paket erwerben.'
+                        );
+
+                        return $this->redirectToRoute('user_backend_payment');
+                        break;
+                    case !in_array("ROLE_MANAGER", $this->getUser()->getRoles()):
+                        $this->addFlash(
+                            'info',
+                            'Bevor Sie diesen Kurs absolvieren können, muss der Manager dieses Accounts ein Paket erwerben.
+                            Bei Fragen wenden Sie sich gerne an service@avinga.de.'
+                        );
+
+                        return $this->redirectToRoute('courses');
+                        break;
+                }
+                
+            }
+        }
 
         $courseInfo = array();
         // Collect data for course info page
-        foreach($courses as $key => $course) {
-        	$courseInfo["id"] = $course->getId();
-        	$courseInfo["name"] = $course->getName();
-        	$courseInfo["description"] = $course->getDescription();
-        	$courseInfo["video"] = $course->getVideo();
-        	$courseInfo["quizId"] = $course->getQuiz()->getId();
-        }
+    	$courseInfo["id"] = $course->getId();
+    	$courseInfo["name"] = $course->getName();
+    	$courseInfo["description"] = $course->getDescription();
+    	$courseInfo["video"] = $course->getVideo();
+    	$courseInfo["quizId"] = $course->getQuiz()->getId();
 
         return $this->render('user_backend/course.html.twig', array(
         	"course" => $courseInfo

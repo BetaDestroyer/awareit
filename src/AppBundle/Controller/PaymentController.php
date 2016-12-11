@@ -20,6 +20,17 @@ class PaymentController extends Controller
 	*/
 	public function indexAction(Request $request)
 	{
+		$userInfo = $this->get('app.userinfo');
+
+		if($userInfo->hasIncompleteData()) {
+			$this->addFlash(
+	            'info',
+	            'Bitte vervollständigen Sie Ihre Benutzerinformation, bevor sie ein Paket bestellen.'
+	        );
+
+	        return $this->redirectToRoute('fos_user_profile_edit');
+		}
+
 		return $this->renderPaymentForm($request);
 	}
 

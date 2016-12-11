@@ -31,6 +31,13 @@ class CourseAdmin extends Admin
 			        'No' => false,
 			    ),
             ))
+            ->add('is_test', 'choice', array(
+                'label' => 'Ist Test',
+                'choices'  => array(
+                    'Yes' => true,
+                    'No' => false,
+                ),
+            ))
             ->add('name', 'text', array(
                 'label' => 'Name'
             ))

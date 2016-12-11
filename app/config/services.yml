@@ -28,3 +28,7 @@ services:
         class: AppBundle\Form\ProfileFormType
         tags:
             - { name: form.type, alias: app_user_profile }
+
+    app.userinfo:
+        class: AppBundle\Utils\UserInfo
+        arguments: ['@fos_user.group_manager', '@doctrine.orm.entity_manager', '@fos_user.user_manager', '@security.token_storage']

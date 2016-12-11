@@ -31,6 +31,11 @@ class Course
     private $isActive;
 
     /**
+     * @ORM\Column(type="boolean", length=100)
+     */
+    private $isTest;
+
+    /**
      * @ORM\Column(type="text")
      */
     private $description;
@@ -352,5 +357,29 @@ class Course
     public function getUpdated()
     {
         return $this->updated;
+    }
+
+    /**
+     * Set isTest
+     *
+     * @param boolean $isTest
+     *
+     * @return Course
+     */
+    public function setIsTest($isTest)
+    {
+        $this->isTest = $isTest;
+
+        return $this;
+    }
+
+    /**
+     * Get isTest
+     *
+     * @return boolean
+     */
+    public function getIsTest()
+    {
+        return $this->isTest;
     }
 }
